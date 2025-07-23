@@ -24,9 +24,7 @@ impl<T> Debug for Id<T> {
             f.write_str(type_name::<T>())?;
             write!(f, ">({})", self.num)
         } else {
-            f.debug_tuple("Id")
-                .field(&self.num)
-                .finish()
+            f.debug_tuple("Id").field(&self.num).finish()
         }
     }
 }

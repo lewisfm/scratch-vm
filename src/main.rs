@@ -1,4 +1,4 @@
-use scratch_vm::bytecode::{
+use scratch_vm::interpreter::{
     Program,
     opcode::{BuiltinProcedure, Opcode, Trigger},
     value::{Local, Procedure, Value, Var},
@@ -20,12 +20,9 @@ fn main() {
     let type_proc = program.register(Procedure::new(
         Some("type %s".into()),
         1,
-        [
-            Local::from("text"),
-            Local::from("repeats_remaining_0"),
-        ].into(),
+        [Local::from("text"), Local::from("repeats_remaining_0")].into(),
         {
-             let mut instructions = vec![
+            let mut instructions = vec![
                 // Clear out state
                 Opcode::ClearVar as _,
                 1,
@@ -104,12 +101,10 @@ fn main() {
             // Patch jump from earlier
             instructions[jump_dest] = repeat_0_end as u32;
 
-            instructions.extend([
-                Opcode::Return as u32,
-            ]);
+            instructions.extend([Opcode::Return as u32]);
 
             instructions.into_boxed_slice()
-        }
+        },
     ));
 
     let typeit_handler = program.register(Procedure::new(

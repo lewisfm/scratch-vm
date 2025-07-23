@@ -5,9 +5,8 @@ edition = "2024"
 
 [dependencies]
 bytemuck = { version = "1.23.1", features = ["derive"] }
-derive_more = { version = "2.0.1", features = ["from"] }
+derive_more = { version = "2.0.1", features = ["constructor", "from", "into", "unwrap"] }
 itertools = "0.14.0"
 num_enum = "0.7.4"
 owo-colors = "4.2.2"
-strum = { version = "0.27.2", features = ["derive"] }
 unicode-segmentation = "1.12.0"

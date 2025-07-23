@@ -1,6 +1,6 @@
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
-use crate::bytecode::{id::Id, value::Event};
+use crate::interpreter::{id::Id, value::Event};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, IntoPrimitive, TryFromPrimitive)]
 #[repr(u32)]

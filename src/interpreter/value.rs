@@ -4,12 +4,11 @@ use std::{
     rc::Rc,
 };
 
-use derive_more::From;
-use strum::EnumTryAs;
+use derive_more::{From, Unwrap};
 
-use crate::bytecode::id::Id;
+use crate::interpreter::id::Id;
 
-#[derive(Debug, Clone, EnumTryAs, From)]
+#[derive(Debug, Clone, Unwrap, From)]
 pub enum Value {
     String(Rc<str>),
     Number(f64),

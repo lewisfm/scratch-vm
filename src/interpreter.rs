@@ -10,7 +10,7 @@ use num_enum::TryFromPrimitive;
 use owo_colors::OwoColorize;
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::bytecode::{
+use crate::interpreter::{
     id::Id,
     opcode::{BuiltinProcedure, Opcode, Trigger},
     value::{Event, Procedure, Value, Var},
@@ -178,7 +178,8 @@ impl Task {
 
     fn pop_n_and_map<const N: usize, T>(&mut self, map: impl FnMut(Value) -> T) -> [T; N] {
         let first_idx = self.stack.len() - N;
-        self.stack.drain(first_idx..self.stack.len())
+        self.stack
+            .drain(first_idx..self.stack.len())
             .map(map)
             .collect_array::<N>()
             .unwrap()
@@ -299,11 +300,11 @@ impl Task {
                 };
 
                 // Restore context from stack
-                let procedure_id = procedure_id.try_as_procedure().unwrap();
+                let procedure_id = procedure_id.unwrap_procedure();
 
                 self.leave_scope();
                 self.procedure = program.procedures[procedure_id.get()].clone();
-                self.location = self.stack.pop().unwrap().try_as_return_location().unwrap();
+                self.location = self.stack.pop().unwrap().unwrap_return_location();
             }
             Opcode::Yield => {
                 return true;
