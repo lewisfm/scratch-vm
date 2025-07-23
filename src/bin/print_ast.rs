@@ -1,13 +1,16 @@
 use std::collections::HashMap;
 
 use scratch_vm::ast::{
-    Block, Field, Input, ProcedureArgument, ProcedurePrototype, ScratchProject, Script, Sprite,
-    StartCondition, Target, Variable,
+    Block, Event, Field, Input, ProcedureArgument, ProcedurePrototype, ScratchProject, Script,
+    Sprite, StartCondition, Target, Variable,
 };
 
 fn main() {
+    let thingtotype = Variable::new(",v+_??!Fl(Mkx.^9$?aq", "thingtotype");
     let textsofar = Variable::new("yz?6:NTcXFFE%NTLQ!@G", "textsofar");
     let c = Variable::new("ziG}OJfdDo2+FuOH7^4=", "c");
+
+    let typeit = Event::new("O#Gthx*c8wNEzk@GC}f2", "typeit");
 
     #[rustfmt::skip]
     let repeat_times = Block::new("operator_length")
@@ -63,12 +66,23 @@ fn main() {
                 .with_input("SUBSTACK", repeat_substack),
         ],
     };
+
+    let event_script = Script {
+        start_condition: StartCondition::BroadcastReceived(typeit.clone()),
+        blocks: vec![
+            Block::call("type %s")
+                .with_input("|n@zQ};g|LMYr1LJOEmI", Block::from(thingtotype.clone())),
+        ],
+    };
+
     let flag_script = Script {
         start_condition: StartCondition::FlagClicked,
         blocks: vec![
-            Block::new("looks_hide"),
-            Block::new("looks_setsizeto").with_input("SIZE", Block::number("100")),
-            Block::new("looks_cleargraphiceffects"),
+            Block::new("data_setvariableto")
+                .with_field("VARIABLE", thingtotype.clone())
+                .with_input("VALUE", Block::text("Hello everyone, Scratch Cat here!")),
+            Block::new("event_broadcast")
+                .with_input("BROADCAST_INPUT", Block::from(typeit.clone())),
         ],
     };
 
@@ -76,10 +90,7 @@ fn main() {
         events: vec![],
         targets: vec![Target {
             name: "Cat".into(),
-            scripts: vec![
-                flag_script,
-                type_script,
-            ],
+            scripts: vec![flag_script, event_script, type_script],
             sprite: Some(Sprite {}),
             variables: HashMap::from([]),
         }],

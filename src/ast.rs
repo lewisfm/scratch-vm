@@ -1,6 +1,6 @@
 use std::{collections::HashMap, rc::Rc};
 
-use derive_more::Constructor;
+use derive_more::{Constructor, From, Into};
 
 use crate::interpreter::value::Value;
 
@@ -9,7 +9,7 @@ use crate::interpreter::value::Value;
 #[derive(Debug)]
 pub struct ScratchProject {
     pub targets: Vec<Target>,
-    pub events: Vec<NamedResource>,
+    pub events: Vec<Event>,
 }
 
 #[derive(Debug)]
@@ -26,7 +26,7 @@ pub struct Sprite {}
 #[derive(Debug)]
 pub enum StartCondition {
     FlagClicked,
-    BroadcastReceived { id: Rc<str> },
+    BroadcastReceived(Event),
     ProcedureCalled(ProcedurePrototype),
 }
 
@@ -83,6 +83,7 @@ pub struct Script {
 #[derive(Debug)]
 pub struct Block {
     pub opcode: Rc<str>,
+    pub proc_code: Option<Rc<str>>,
     /// Inputs that reference other blocks
     pub inputs: HashMap<Rc<str>, Input>,
     /// Inputs that don't reference other blocks
@@ -93,6 +94,16 @@ impl Block {
     pub fn new(opcode: impl Into<Rc<str>>) -> Self {
         Self {
             opcode: opcode.into(),
+            proc_code: None,
+            inputs: HashMap::new(),
+            fields: HashMap::new(),
+        }
+    }
+
+    pub fn call(proc_code: impl Into<Rc<str>>) -> Self {
+        Self {
+            opcode: "procedures_call".into(),
+            proc_code: Some(proc_code.into()),
             inputs: HashMap::new(),
             fields: HashMap::new(),
         }
@@ -134,6 +145,11 @@ impl Block {
         Block::new("argument_reporter_string_number").with_field("VALUE", Field::new(name))
     }
 
+    pub fn event(id: impl Into<Rc<str>>, name: impl Into<Rc<str>>) -> Self {
+        Block::new("event_broadcast_menu")
+            .with_field("BROADCAST_OPTION", Field::identified(id, name))
+    }
+
     pub fn with_input(mut self, name: impl Into<Rc<str>>, input: impl Into<Input>) -> Self {
         self.inputs.insert(name.into(), input.into());
         self
@@ -147,7 +163,13 @@ impl Block {
 
 impl From<Variable> for Block {
     fn from(value: Variable) -> Self {
-        Self::var(value.id, value.name)
+        Self::var(value.0.id, value.0.name)
+    }
+}
+
+impl From<Event> for Block {
+    fn from(value: Event) -> Self {
+        Self::event(value.0.id, value.0.name)
     }
 }
 
@@ -206,32 +228,41 @@ impl Field {
     }
 }
 
-impl From<Variable> for Field {
-    fn from(value: Variable) -> Self {
-        Self {
-            id: Some(value.id),
-            value: value.name,
-        }
+impl<T: Into<NamedResource>> From<T> for Field {
+    fn from(value: T) -> Self {
+        let resource: NamedResource = value.into();
+        Self::identified(resource.id, resource.name)
     }
 }
 
-#[derive(Debug, Constructor)]
+#[derive(Debug, Clone, Constructor)]
 pub struct NamedResource {
     pub id: Rc<str>,
     pub name: Rc<str>,
 }
 
-#[derive(Debug, Clone)]
-pub struct Variable {
-    pub id: Rc<str>,
-    pub name: Rc<str>,
-}
+#[derive(Debug, Clone, From, Into)]
+pub struct Variable(NamedResource);
 
 impl Variable {
     pub fn new(id: impl Into<Rc<str>>, name: impl Into<Rc<str>>) -> Self {
-        Self {
-            id: id.into(),
-            name: name.into(),
-        }
+        Self(NamedResource::new(id.into(), name.into()))
+    }
+
+    pub fn into_inner(self) -> NamedResource {
+        self.0
+    }
+}
+
+#[derive(Debug, Clone, From, Into)]
+pub struct Event(NamedResource);
+
+impl Event {
+    pub fn new(id: impl Into<Rc<str>>, name: impl Into<Rc<str>>) -> Self {
+        Self(NamedResource::new(id.into(), name.into()))
+    }
+
+    pub fn into_inner(self) -> NamedResource {
+        self.0
     }
 }
