@@ -1,0 +1,38 @@
+Program { sprites, stage, custom_blocks, variables, events }
+
+Sprite { scripts, variables }
+
+Script(FlagClicked) [
+    Hide,
+    SetSizeTo { percent: Constant("100") },
+    ClearGraphicsEffects,
+    SendEvent(Const("showscratchcat")),
+],
+
+Script(EventRecv("typeit")) [
+    InvokeProcedure("type %s", [Var("thingtotype")]),
+]
+
+Script(EventRecv("showscratchcat")) [
+    SwitchCostume(Const("cat-a")),
+    GoToXY(Const("-84"), Const("-74")),
+    Show,
+    SetVar("thingtotype", Const("Hello everyone, Scratch Cat here!")),
+    SendEvent(Const("typeit")),
+    Speak(Var("thingtotype")),
+]
+
+Procedure("type %s") {
+    params: [
+        ParamSignature("text", Text)
+    ],
+    stack: [
+        SetVar("textsofar", Const("")),
+        SetVar("c", Const("0")),
+        Repeat(LengthOf(Param("text"))) [
+            ChangeVar("c", Const("1")),
+            Say(Join(Var("textsofar"), LetterOf(Var("c"), Param("text")))),
+            SetVar("textsofar", Join(Var("textsofar"), LetterOf(Var("c"), Param("text")))),
+        ],
+    ],
+}

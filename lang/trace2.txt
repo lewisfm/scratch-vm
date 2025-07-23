@@ -1,0 +1,531 @@
+----------------------Compiled Output: '<main>'-----------------------
+Location  Count    Handler    Opcode                     Operands
+
+000000    0000      none      HasRestrictedGlobalProperty                           0
+000002    0001      none      JumpIfFalse                           9
+000007    0002      none      ThrowNewSyntaxError                           1
+000009    0003      none      HasRestrictedGlobalProperty                           2
+000011    0004      none      JumpIfFalse                           18
+000016    0005      none      ThrowNewSyntaxError                           1
+000018    0006      none      CanDeclareGlobalVar                           3
+000020    0007      none      JumpIfTrue                           27
+000025    0008      none      ThrowNewTypeError                           4
+000027    0009      none      CanDeclareGlobalVar                           5
+000029    0010      none      JumpIfTrue                           36
+000034    0011      none      ThrowNewTypeError                           4
+000036    0012      none      CanDeclareGlobalVar                           6
+000038    0013      none      JumpIfTrue                           45
+000043    0014      none      ThrowNewTypeError                           4
+000045    0015      none      CreateGlobalVarBinding                           name: textsofar, configurable: false
+000048    0016      none      CreateGlobalVarBinding                           name: c, configurable: false
+000051    0017      none      CreateGlobalVarBinding                           name: i, configurable: false
+000054    0018      none      PushLiteral                           7
+000056    0019      none      PutLexicalValue                           0000: 'text'
+000058    0020      none      GetLocator                           0001: 'textsofar'
+000060    0021      none      PushLiteral                           8
+000062    0022      none      SetNameByLocator                           
+000063    0023      none      GetLocator                           0002: 'c'
+000065    0024      none      PushZero                           
+000066    0025      none      SetNameByLocator                           
+000067    0026      none      GetName                           0000: 'text'
+000069    0027      none      Dup                           
+000070    0028      none      GetPropertyByName                           0000: 'length', Shape: 0x0, Slot: index: 0, attributes SlotAttributes(0x0)
+000072    0029      none      PutLexicalValue                           0003: 'length'
+000074    0030      none      GetLocator                           0004: 'i'
+000076    0031      none      PushZero                           
+000077    0032      none      SetNameByLocator                           
+000078    0033      none      Jump                           90
+000083    0034      none      IncrementLoopIteration                           
+000084    0035      none      GetNameAndLocator                           0004: 'i'
+000086    0036      none      IncPost                           
+000087    0037      none      Swap                           
+000088    0038      none      SetNameByLocator                           
+000089    0039      none      Pop                           
+000090    0040      none      GetName                           0004: 'i'
+000092    0041      none      GetName                           0003: 'length'
+000094    0042      none      LessThan                           
+000095    0043      none      JumpIfFalse                           142
+000100    0044      none      GetNameAndLocator                           0002: 'c'
+000102    0045      none      PushOne                           
+000103    0046      none      Add                           
+000104    0047      none      SetNameByLocator                           
+000105    0048      none      GetName                           0005: 'console'
+000107    0049      none      Dup                           
+000108    0050      none      Dup                           
+000109    0051      none      GetPropertyByName                           0001: 'log', Shape: 0x0, Slot: index: 0, attributes SlotAttributes(0x0)
+000111    0052      none      GetName                           0001: 'textsofar'
+000113    0053      none      GetName                           0000: 'text'
+000115    0054      none      Dup                           
+000116    0055      none      GetName                           0002: 'c'
+000118    0056      none      GetPropertyByValue                           
+000119    0057      none      Add                           
+000120    0058      none      Call                           1
+000122    0059      none      Pop                           
+000123    0060      none      GetLocator                           0001: 'textsofar'
+000125    0061      none      GetName                           0001: 'textsofar'
+000127    0062      none      GetName                           0000: 'text'
+000129    0063      none      Dup                           
+000130    0064      none      GetName                           0002: 'c'
+000132    0065      none      GetPropertyByValue                           
+000133    0066      none      Add                           
+000134    0067      none      Dup                           
+000135    0068      none      SetNameByLocator                           
+000136    0069      none      SetReturnValue                           
+000137    0070      none      Jump                           83
+000142    0071      none      CheckReturn                           
+000143    0072      none      Return                           
+
+Constants:
+    0000: [STRING] "text"
+    0001: [STRING] "cannot redefine non-configurable global property"
+    0002: [STRING] "length"
+    0003: [STRING] "textsofar"
+    0004: [STRING] "cannot declare global variable"
+    0005: [STRING] "c"
+    0006: [STRING] "i"
+    0007: [STRING] "helloWorld"
+    0008: [STRING] ""
+    0009: [STRING] "length"
+    0010: [STRING] "log"
+
+Bindings:
+    0000: text
+    0001: textsofar
+    0002: c
+    0003: length
+    0004: i
+    0005: console
+
+Handlers:
+    <empty>
+
+------------------------------------ Call Frame -- <main> ------------------------------------
+Time          Opcode                     Operands                   Stack
+
+3μs           HasRestrictedGlobalProperty 0                          [ false, null, undefined |0| ]
+0μs           JumpIfFalse                9                          [ null, undefined |0| ]
+0μs           HasRestrictedGlobalProperty 2                          [ false, null, undefined |0| ]
+0μs           JumpIfFalse                18                         [ null, undefined |0| ]
+0μs           CanDeclareGlobalVar        3                          [ true, null, undefined |0| ]
+0μs           JumpIfTrue                 27                         [ null, undefined |0| ]
+0μs           CanDeclareGlobalVar        5                          [ true, null, undefined |0| ]
+0μs           JumpIfTrue                 36                         [ null, undefined |0| ]
+0μs           CanDeclareGlobalVar        6                          [ true, null, undefined |0| ]
+0μs           JumpIfTrue                 45                         [ null, undefined |0| ]
+3μs           CreateGlobalVarBinding     name: textsofar, configurable: false [ null, undefined |0| ]
+0μs           CreateGlobalVarBinding     name: c, configurable: false [ null, undefined |0| ]
+0μs           CreateGlobalVarBinding     name: i, configurable: false [ null, undefined |0| ]
+5μs           PushLiteral                7                          [ "helloWorld", null, undefined |0| ]
+0μs           PutLexicalValue            0000: 'text'               [ null, undefined |0| ]
+3μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           PushLiteral                8                          [ "", null, undefined |0| ]
+4μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetLocator                 0002: 'c'                  [ null, undefined |0| ]
+0μs           PushZero                                              [ 0, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", null, undefined |0| ]
+7μs           GetPropertyByName          0000: 'length', Shape: 0x0, Slot: index: 0, attributes SlotAttributes(0x0) [ 10, null, undefined |0| ]
+0μs           PutLexicalValue            0003: 'length'             [ null, undefined |0| ]
+0μs           GetLocator                 0004: 'i'                  [ null, undefined |0| ]
+0μs           PushZero                                              [ 0, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           Jump                       90                         [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 0, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 0, null, undefined |0| ]
+6μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 0, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 0, null, undefined |0| ]
+3μs           Add                                                   [ 1, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x0, Slot: index: 0, attributes SlotAttributes(0x0) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "", [function], [object], null, undefined |0| ]
+1μs           GetName                    0002: 'c'                  [ 1, "helloWorld", "helloWorld", "", [function], [object], null, undefined |0| ]
+1μs           GetPropertyByValue                                    [ "e", "", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "e", [function], [object], null, undefined |0| ]
+
+e
+12μs          Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 1, "helloWorld", "helloWorld", "", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "e", "", null, undefined |0| ]
+0μs           Add                                                   [ "e", null, undefined |0| ]
+0μs           Dup                                                   [ "e", "e", null, undefined |0| ]
+1μs           SetNameByLocator                                      [ "e", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+7μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 0, null, undefined |0| ]
+0μs           IncPost                                               [ 0, 1, null, undefined |0| ]
+2μs           Swap                                                  [ 1, 0, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 0, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 1, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 1, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 1, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 1, null, undefined |0| ]
+0μs           Add                                                   [ 2, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "e", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "e", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "e", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 2, "helloWorld", "helloWorld", "e", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "e", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "el", [function], [object], null, undefined |0| ]
+
+el
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "e", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "e", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "e", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 2, "helloWorld", "helloWorld", "e", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "e", null, undefined |0| ]
+0μs           Add                                                   [ "el", null, undefined |0| ]
+0μs           Dup                                                   [ "el", "el", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "el", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 1, null, undefined |0| ]
+0μs           IncPost                                               [ 1, 2, null, undefined |0| ]
+0μs           Swap                                                  [ 2, 1, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 1, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 2, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 2, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 2, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 2, null, undefined |0| ]
+0μs           Add                                                   [ 3, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "el", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "el", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "el", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 3, "helloWorld", "helloWorld", "el", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "el", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "ell", [function], [object], null, undefined |0| ]
+
+ell
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "el", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "el", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "el", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 3, "helloWorld", "helloWorld", "el", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "el", null, undefined |0| ]
+0μs           Add                                                   [ "ell", null, undefined |0| ]
+0μs           Dup                                                   [ "ell", "ell", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "ell", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 2, null, undefined |0| ]
+0μs           IncPost                                               [ 2, 3, null, undefined |0| ]
+0μs           Swap                                                  [ 3, 2, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 2, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 3, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 3, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 3, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 3, null, undefined |0| ]
+0μs           Add                                                   [ 4, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "ell", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "ell", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "ell", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 4, "helloWorld", "helloWorld", "ell", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "o", "ell", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "ello", [function], [object], null, undefined |0| ]
+
+ello
+1μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "ell", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "ell", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "ell", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 4, "helloWorld", "helloWorld", "ell", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "o", "ell", null, undefined |0| ]
+0μs           Add                                                   [ "ello", null, undefined |0| ]
+0μs           Dup                                                   [ "ello", "ello", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "ello", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 3, null, undefined |0| ]
+0μs           IncPost                                               [ 3, 4, null, undefined |0| ]
+0μs           Swap                                                  [ 4, 3, null, undefined |0| ]
+1μs           SetNameByLocator                                      [ 3, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 4, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 4, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 4, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 4, null, undefined |0| ]
+0μs           Add                                                   [ 5, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "ello", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "ello", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "ello", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 5, "helloWorld", "helloWorld", "ello", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "W", "ello", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "elloW", [function], [object], null, undefined |0| ]
+
+elloW
+1μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "ello", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "ello", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "ello", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 5, "helloWorld", "helloWorld", "ello", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "W", "ello", null, undefined |0| ]
+0μs           Add                                                   [ "elloW", null, undefined |0| ]
+0μs           Dup                                                   [ "elloW", "elloW", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloW", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 4, null, undefined |0| ]
+0μs           IncPost                                               [ 4, 5, null, undefined |0| ]
+0μs           Swap                                                  [ 5, 4, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 4, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 5, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 5, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 5, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 5, null, undefined |0| ]
+0μs           Add                                                   [ 6, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloW", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloW", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloW", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 6, "helloWorld", "helloWorld", "elloW", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "o", "elloW", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "elloWo", [function], [object], null, undefined |0| ]
+
+elloWo
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloW", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloW", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloW", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 6, "helloWorld", "helloWorld", "elloW", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "o", "elloW", null, undefined |0| ]
+0μs           Add                                                   [ "elloWo", null, undefined |0| ]
+0μs           Dup                                                   [ "elloWo", "elloWo", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloWo", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 5, null, undefined |0| ]
+0μs           IncPost                                               [ 5, 6, null, undefined |0| ]
+0μs           Swap                                                  [ 6, 5, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 5, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 6, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 6, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 6, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 6, null, undefined |0| ]
+0μs           Add                                                   [ 7, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWo", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWo", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWo", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 7, "helloWorld", "helloWorld", "elloWo", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "r", "elloWo", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "elloWor", [function], [object], null, undefined |0| ]
+
+elloWor
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWo", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWo", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWo", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 7, "helloWorld", "helloWorld", "elloWo", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "r", "elloWo", null, undefined |0| ]
+0μs           Add                                                   [ "elloWor", null, undefined |0| ]
+0μs           Dup                                                   [ "elloWor", "elloWor", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloWor", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 6, null, undefined |0| ]
+0μs           IncPost                                               [ 6, 7, null, undefined |0| ]
+0μs           Swap                                                  [ 7, 6, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 6, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 7, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 7, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 7, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 7, null, undefined |0| ]
+0μs           Add                                                   [ 8, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWor", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWor", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWor", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 8, "helloWorld", "helloWorld", "elloWor", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "elloWor", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "elloWorl", [function], [object], null, undefined |0| ]
+
+elloWorl
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWor", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWor", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWor", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 8, "helloWorld", "helloWorld", "elloWor", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "l", "elloWor", null, undefined |0| ]
+0μs           Add                                                   [ "elloWorl", null, undefined |0| ]
+0μs           Dup                                                   [ "elloWorl", "elloWorl", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloWorl", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 7, null, undefined |0| ]
+0μs           IncPost                                               [ 7, 8, null, undefined |0| ]
+0μs           Swap                                                  [ 8, 7, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 7, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 8, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 8, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 8, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 8, null, undefined |0| ]
+0μs           Add                                                   [ 9, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWorl", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWorl", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWorl", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 9, "helloWorld", "helloWorld", "elloWorl", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "d", "elloWorl", [function], [object], null, undefined |0| ]
+0μs           Add                                                   [ "elloWorld", [function], [object], null, undefined |0| ]
+
+elloWorld
+0μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWorl", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWorl", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWorl", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 9, "helloWorld", "helloWorld", "elloWorl", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ "d", "elloWorl", null, undefined |0| ]
+0μs           Add                                                   [ "elloWorld", null, undefined |0| ]
+0μs           Dup                                                   [ "elloWorld", "elloWorld", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloWorld", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 8, null, undefined |0| ]
+0μs           IncPost                                               [ 8, 9, null, undefined |0| ]
+0μs           Swap                                                  [ 9, 8, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 8, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 9, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 9, null, undefined |0| ]
+0μs           LessThan                                              [ true, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           GetNameAndLocator          0002: 'c'                  [ 9, null, undefined |0| ]
+0μs           PushOne                                               [ 1, 9, null, undefined |0| ]
+0μs           Add                                                   [ 10, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ null, undefined |0| ]
+0μs           GetName                    0005: 'console'            [ [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], null, undefined |0| ]
+0μs           Dup                                                   [ [object], [object], [object], null, undefined |0| ]
+0μs           GetPropertyByName          0001: 'log', Shape: 0x12ca06f50, Slot: index: 6, attributes SlotAttributes(WRITABLE | CONFIGURABLE | FOUND) [ [function], [object], null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWorld", [function], [object], null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWorld", [function], [object], null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWorld", [function], [object], null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 10, "helloWorld", "helloWorld", "elloWorld", [function], [object], null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ undefined, "elloWorld", [function], [object], null, undefined |0| ]
+4μs           Add                                                   [ "elloWorldundefined", [function], [object], null, undefined |0| ]
+
+elloWorldundefined
+3μs           Call                       1                          [ undefined, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetLocator                 0001: 'textsofar'          [ null, undefined |0| ]
+0μs           GetName                    0001: 'textsofar'          [ "elloWorld", null, undefined |0| ]
+0μs           GetName                    0000: 'text'               [ "helloWorld", "elloWorld", null, undefined |0| ]
+0μs           Dup                                                   [ "helloWorld", "helloWorld", "elloWorld", null, undefined |0| ]
+0μs           GetName                    0002: 'c'                  [ 10, "helloWorld", "helloWorld", "elloWorld", null, undefined |0| ]
+0μs           GetPropertyByValue                                    [ undefined, "elloWorld", null, undefined |0| ]
+0μs           Add                                                   [ "elloWorldundefined", null, undefined |0| ]
+0μs           Dup                                                   [ "elloWorldundefined", "elloWorldundefined", null, undefined |0| ]
+0μs           SetNameByLocator                                      [ "elloWorldundefined", null, undefined |0| ]
+0μs           SetReturnValue                                        [ null, undefined |0| ]
+0μs           Jump                       83                         [ null, undefined |0| ]
+0μs           IncrementLoopIteration                                [ null, undefined |0| ]
+0μs           GetNameAndLocator          0004: 'i'                  [ 9, null, undefined |0| ]
+0μs           IncPost                                               [ 9, 10, null, undefined |0| ]
+0μs           Swap                                                  [ 10, 9, null, undefined |0| ]
+0μs           SetNameByLocator                                      [ 9, null, undefined |0| ]
+0μs           Pop                                                   [ null, undefined |0| ]
+0μs           GetName                    0004: 'i'                  [ 10, null, undefined |0| ]
+0μs           GetName                    0003: 'length'             [ 10, 10, null, undefined |0| ]
+0μs           LessThan                                              [ false, null, undefined |0| ]
+0μs           JumpIfFalse                142                        [ null, undefined |0| ]
+0μs           CheckReturn                                           [ null, undefined |0| ]
+
+0μs           Return                                                [ null, undefined |0| ]
+"elloWorldundefined"

@@ -1,0 +1,95 @@
+Constants:
+    0: number 100
+    1: event "showscratchcat"
+    2: event "typeit"
+    4: string "cat-a"
+    5: number -84
+    6: number -74
+    7: string "Hello everyone, Scratch Cat here!"
+    8: string ""
+    9: number 0
+   10: number 1
+
+Global Variables:
+    0: thingtotype
+    1: textsofar
+    2: c
+
+Sprite 0 "Cat":
+    Procedure 0 "type %s":
+        Locals:
+            0: param text
+            1: repeats_remaining_0
+
+
+        PushConstant 8          // string ""
+        SetVar 0, 1             // Global textsofar
+        PushConstant 9          // number 0
+        SetVar 0, 2             // Global c
+
+        PushVar 2, 0            // Local param text
+        CallBuiltin 7           // LengthOf()
+        SetVar 2, 1             // Local repeats_remaining_0
+      repeat_0:
+        PushVar 2, 1            // Local repeats_remaining_0
+        PushConstant 9          // number 0
+        GreaterThan
+        JumpIfTrue repeat_end
+
+        PushConstant 10         // number 1
+        PushVar 0, 2            // Global c
+        Add
+        SetVar 0, 2             // Global c
+
+        // Is this the correct ordering in the stack?
+        PushVar 2, 0            // Local param text
+        PushVar 0, 2            // Global c
+        CallBuiltin 8           // LetterOf()
+        PushVar 0, 1            // Global textsofar
+        CallBuiltin 9           // Join()
+        CallBuiltin 10          // Say()
+
+        PushVar 2, 0            // Local param text
+        PushVar 0, 2            // Global c
+        CallBuiltin 8           // LetterOf()
+        PushVar 0, 1            // Global textsofar
+        CallBuiltin 9           // Join()
+        SetVar 0, 1             // Global textsofar
+
+        DecVar 2, 1             // Local repeats_remaining_0
+        Jump repeat_0
+      repeat_0_end:
+        Return
+
+    Procedure 1 on FlagClicked:
+        CallBuiltin 0           // Hide()
+        PushConstant 0          // number 100
+        CallBuiltin 1           // SetSizeTo()
+        CallBuiltin 2           // ClearGraphicsEffects()
+        PushConstant 1          // event showscratchcat
+        CallBuiltin 3           // SendEvent()
+        Return
+
+    Procedure 2 on EventRecv(2):   // event "typeit"
+        PushVar 0, 0            // Global, thingtotype
+        CallProcedure 0         // "type %s"()
+        Return
+
+    Procedure 3 on EventRecv(1):   // event "showscratchcat"
+        PushConstant 4          // string "cat-a"
+        CallBuiltin 4           // SwitchCostume()
+        PushConstant 5          // number -84
+        PushConstant 6          // number -74
+        CallBuiltin 5           // GoToXY()
+        CallBuiltin 6           // Show()
+
+        PushConstant 7          // string "hello everyone..."
+        SetVar 0, 0             // Global, thingtotype
+
+        PushConstant 3          // event typeit
+        CallBuiltin 3           // SendEvent()
+
+        PushVar 0, 0            // Global, thingtotype
+        CallBuiltin 7           // Speak()
+
+        Return

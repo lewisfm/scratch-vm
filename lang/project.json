@@ -1,0 +1,2495 @@
+{
+    "targets": [
+        {
+            "isStage": true,
+            "name": "Stage",
+            "variables": {
+                "`jEk@4|i[#Fk?(8x)AV.-my variable": ["my variable", 0],
+                "yz?6:NTcXFFE%NTLQ!@G": ["textsofar", "Bye!"],
+                "ziG}OJfdDo2+FuOH7^4=": ["c", 4],
+                ",v+_??!Fl(Mkx.^9$?aq": ["thingtotype", "Bye!"]
+            },
+            "lists": {},
+            "broadcasts": {
+                "O#Gthx*c8wNEzk@GC}f2": "typeit",
+                "2[=M~:]yrtgnb#%,KPB3": "showscratchcat",
+                "%t``^D3%ZL}Obg+@o)Ou": "backgroundmusic",
+                "b*=akNkK#Z*Qf?xH?Nm+": "backgroundmusic2",
+                "~.5*wKN0HV4@O6akE~2i": "fadeintext"
+            },
+            "blocks": {},
+            "comments": {},
+            "currentCostume": 0,
+            "costumes": [
+                {
+                    "name": "backdrop1",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "71fb0e1c7afbf08199361a28ecf641ee",
+                    "md5ext": "71fb0e1c7afbf08199361a28ecf641ee.svg",
+                    "rotationCenterX": 244.59159159159162,
+                    "rotationCenterY": 185.07057057057062
+                }
+            ],
+            "sounds": [
+                {
+                    "name": "pop",
+                    "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                    "dataFormat": "wav",
+                    "format": "",
+                    "rate": 48000,
+                    "sampleCount": 1123,
+                    "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+                }
+            ],
+            "volume": 100,
+            "layerOrder": 0,
+            "tempo": 60,
+            "videoTransparency": 50,
+            "videoState": "on",
+            "textToSpeechLanguage": "en"
+        },
+        {
+            "isStage": false,
+            "name": "Cat",
+            "variables": {},
+            "lists": {},
+            "broadcasts": {},
+            "blocks": {
+                "r": {
+                    "opcode": "procedures_definition",
+                    "next": "s",
+                    "parent": null,
+                    "inputs": { "custom_block": [1, "t"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 394,
+                    "y": 87
+                },
+                "t": {
+                    "opcode": "procedures_prototype",
+                    "next": null,
+                    "parent": "r",
+                    "inputs": { "|n@zQ};g|LMYr1LJOEmI": [1, "a@"] },
+                    "fields": {},
+                    "shadow": true,
+                    "topLevel": false,
+                    "mutation": {
+                        "tagName": "mutation",
+                        "children": [],
+                        "proccode": "type %s",
+                        "argumentids": "[\"|n@zQ};g|LMYr1LJOEmI\"]",
+                        "argumentnames": "[\"text\"]",
+                        "argumentdefaults": "[\"\"]",
+                        "warp": "false"
+                    }
+                },
+                "a@": {
+                    "opcode": "argument_reporter_string_number",
+                    "next": null,
+                    "parent": "t",
+                    "inputs": {},
+                    "fields": { "VALUE": ["text", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "s": {
+                    "opcode": "data_setvariableto",
+                    "next": "u",
+                    "parent": "r",
+                    "inputs": { "VALUE": [1, [10, ""]] },
+                    "fields": {
+                        "VARIABLE": ["textsofar", "yz?6:NTcXFFE%NTLQ!@G"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "u": {
+                    "opcode": "data_setvariableto",
+                    "next": "a",
+                    "parent": "s",
+                    "inputs": { "VALUE": [1, [10, "0"]] },
+                    "fields": { "VARIABLE": ["c", "ziG}OJfdDo2+FuOH7^4="] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a": {
+                    "opcode": "control_repeat",
+                    "next": null,
+                    "parent": "u",
+                    "inputs": {
+                        "TIMES": [3, "v", [6, "10"]],
+                        "SUBSTACK": [2, "w"]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "v": {
+                    "opcode": "operator_length",
+                    "next": null,
+                    "parent": "a",
+                    "inputs": { "STRING": [3, "a[", [10, "apple"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a[": {
+                    "opcode": "argument_reporter_string_number",
+                    "next": null,
+                    "parent": "v",
+                    "inputs": {},
+                    "fields": { "VALUE": ["text", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "w": {
+                    "opcode": "data_changevariableby",
+                    "next": "b",
+                    "parent": "a",
+                    "inputs": { "VALUE": [1, [4, "1"]] },
+                    "fields": { "VARIABLE": ["c", "ziG}OJfdDo2+FuOH7^4="] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "b": {
+                    "opcode": "looks_say",
+                    "next": "x",
+                    "parent": "w",
+                    "inputs": {
+                        "MESSAGE": [3, "y", [10, "Hello! I am Scratch Cat!"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "y": {
+                    "opcode": "operator_join",
+                    "next": null,
+                    "parent": "b",
+                    "inputs": {
+                        "STRING1": [
+                            3,
+                            [12, "textsofar", "yz?6:NTcXFFE%NTLQ!@G"],
+                            [10, "apple "]
+                        ],
+                        "STRING2": [3, "z", [10, "banana"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "z": {
+                    "opcode": "operator_letter_of",
+                    "next": null,
+                    "parent": "y",
+                    "inputs": {
+                        "LETTER": [
+                            3,
+                            [12, "c", "ziG}OJfdDo2+FuOH7^4="],
+                            [6, "1"]
+                        ],
+                        "STRING": [3, "a]", [10, "apple"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a]": {
+                    "opcode": "argument_reporter_string_number",
+                    "next": null,
+                    "parent": "z",
+                    "inputs": {},
+                    "fields": { "VALUE": ["text", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "x": {
+                    "opcode": "data_setvariableto",
+                    "next": null,
+                    "parent": "b",
+                    "inputs": { "VALUE": [3, "A", [10, "11"]] },
+                    "fields": {
+                        "VARIABLE": ["textsofar", "yz?6:NTcXFFE%NTLQ!@G"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "A": {
+                    "opcode": "operator_join",
+                    "next": null,
+                    "parent": "x",
+                    "inputs": {
+                        "STRING1": [
+                            3,
+                            [12, "textsofar", "yz?6:NTcXFFE%NTLQ!@G"],
+                            [10, "apple "]
+                        ],
+                        "STRING2": [3, "B", [10, "banana"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "B": {
+                    "opcode": "operator_letter_of",
+                    "next": null,
+                    "parent": "A",
+                    "inputs": {
+                        "LETTER": [
+                            3,
+                            [12, "c", "ziG}OJfdDo2+FuOH7^4="],
+                            [6, "1"]
+                        ],
+                        "STRING": [3, "a^", [10, "apple"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a^": {
+                    "opcode": "argument_reporter_string_number",
+                    "next": null,
+                    "parent": "B",
+                    "inputs": {},
+                    "fields": { "VALUE": ["text", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a_": {
+                    "opcode": "event_whenflagclicked",
+                    "next": "C",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 51,
+                    "y": 198
+                },
+                "C": {
+                    "opcode": "looks_hide",
+                    "next": "D",
+                    "parent": "a_",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "D": {
+                    "opcode": "looks_setsizeto",
+                    "next": "a`",
+                    "parent": "C",
+                    "inputs": { "SIZE": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a`": {
+                    "opcode": "looks_cleargraphiceffects",
+                    "next": null,
+                    "parent": "D",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a{": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "a|",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": ["typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 114,
+                    "y": 725
+                },
+                "a|": {
+                    "opcode": "procedures_call",
+                    "next": null,
+                    "parent": "a{",
+                    "inputs": {
+                        "|n@zQ};g|LMYr1LJOEmI": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello! I am Scratch Cat!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false,
+                    "mutation": {
+                        "tagName": "mutation",
+                        "children": [],
+                        "proccode": "type %s",
+                        "argumentids": "[\"|n@zQ};g|LMYr1LJOEmI\"]",
+                        "warp": "false"
+                    }
+                },
+                "a}": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "c",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": [
+                            "showscratchcat",
+                            "2[=M~:]yrtgnb#%,KPB3"
+                        ]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 382,
+                    "y": 635
+                },
+                "c": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "E",
+                    "parent": "a}",
+                    "inputs": { "COSTUME": [1, "a~"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a~": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "c",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["cat-a", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "E": {
+                    "opcode": "motion_gotoxy",
+                    "next": "F",
+                    "parent": "c",
+                    "inputs": { "X": [1, [4, "-84"]], "Y": [1, [4, "-74"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "F": {
+                    "opcode": "looks_setsizeto",
+                    "next": "G",
+                    "parent": "E",
+                    "inputs": { "SIZE": [1, [4, "300"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "G": {
+                    "opcode": "looks_gotofrontback",
+                    "next": "H",
+                    "parent": "F",
+                    "inputs": {},
+                    "fields": { "FRONT_BACK": ["front", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "H": {
+                    "opcode": "looks_show",
+                    "next": "d",
+                    "parent": "G",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "d": {
+                    "opcode": "text2speech_setVoice",
+                    "next": "I",
+                    "parent": "H",
+                    "inputs": { "VOICE": [1, "ba"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ba": {
+                    "opcode": "text2speech_menu_voices",
+                    "next": null,
+                    "parent": "d",
+                    "inputs": {},
+                    "fields": { "voices": ["SQUEAK", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "I": {
+                    "opcode": "data_setvariableto",
+                    "next": "J",
+                    "parent": "d",
+                    "inputs": {
+                        "VALUE": [1, [10, "Hello everyone, Scratch Cat here!"]]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "J": {
+                    "opcode": "event_broadcast",
+                    "next": "K",
+                    "parent": "I",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "K": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "L",
+                    "parent": "J",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "L": {
+                    "opcode": "control_wait",
+                    "next": "M",
+                    "parent": "K",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "M": {
+                    "opcode": "data_setvariableto",
+                    "next": "N",
+                    "parent": "L",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [10, "Welcome to Episode 2 of Scratch TV News!"]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "N": {
+                    "opcode": "event_broadcast",
+                    "next": "O",
+                    "parent": "M",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "O": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "P",
+                    "parent": "N",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "P": {
+                    "opcode": "control_wait",
+                    "next": "Q",
+                    "parent": "O",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "Q": {
+                    "opcode": "data_setvariableto",
+                    "next": "R",
+                    "parent": "P",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "Let's start off by talking about an upcoming Scratch event."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "R": {
+                    "opcode": "event_broadcast",
+                    "next": "S",
+                    "parent": "Q",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "S": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "T",
+                    "parent": "R",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "T": {
+                    "opcode": "control_wait",
+                    "next": "U",
+                    "parent": "S",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "U": {
+                    "opcode": "looks_say",
+                    "next": "e",
+                    "parent": "T",
+                    "inputs": { "MESSAGE": [1, [10, ""]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "e": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "V",
+                    "parent": "U",
+                    "inputs": { "COSTUME": [1, "bb"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bb": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "e",
+                    "inputs": {},
+                    "fields": {
+                        "COSTUME": ["Screen Shot 2025-07-07 at 2", null]
+                    },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "V": {
+                    "opcode": "looks_setsizeto",
+                    "next": "W",
+                    "parent": "e",
+                    "inputs": { "SIZE": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "W": {
+                    "opcode": "motion_gotoxy",
+                    "next": "X",
+                    "parent": "V",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "X": {
+                    "opcode": "data_setvariableto",
+                    "next": "Y",
+                    "parent": "W",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "So there's an event that the Scratch Team does almost every year for educators and other people."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "Y": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "Z",
+                    "parent": "X",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "Z": {
+                    "opcode": "data_setvariableto",
+                    "next": "!",
+                    "parent": "Y",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [10, "It's called the Scratch Conference."]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "!": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "#",
+                    "parent": "Z",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "#": {
+                    "opcode": "data_setvariableto",
+                    "next": "%",
+                    "parent": "!",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [10, "This year's theme is Imagination in Action."]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "%": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "(",
+                    "parent": "#",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "(": {
+                    "opcode": "data_setvariableto",
+                    "next": ")",
+                    "parent": "%",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "The conference will take place on July 24 online."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                ")": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "*",
+                    "parent": "(",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "*": {
+                    "opcode": "data_setvariableto",
+                    "next": "+",
+                    "parent": ")",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "Spaces are limited, so if you know of someone older who is interested, tell them to join today!"
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "+": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "f",
+                    "parent": "*",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "f": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": ",",
+                    "parent": "+",
+                    "inputs": { "COSTUME": [1, "bc"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bc": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "f",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["cat-a", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                ",": {
+                    "opcode": "motion_gotoxy",
+                    "next": "-",
+                    "parent": "f",
+                    "inputs": { "X": [1, [4, "-84"]], "Y": [1, [4, "-74"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "-": {
+                    "opcode": "looks_setsizeto",
+                    "next": ".",
+                    "parent": ",",
+                    "inputs": { "SIZE": [1, [4, "300"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                ".": {
+                    "opcode": "data_setvariableto",
+                    "next": "/",
+                    "parent": "-",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "Next, let's talk about the future of the Scratch TV Animation Contest."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "/": {
+                    "opcode": "event_broadcast",
+                    "next": ":",
+                    "parent": ".",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                ":": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": ";",
+                    "parent": "/",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                ";": {
+                    "opcode": "control_wait",
+                    "next": "=",
+                    "parent": ":",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "=": {
+                    "opcode": "looks_say",
+                    "next": "g",
+                    "parent": ";",
+                    "inputs": { "MESSAGE": [1, [10, ""]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "g": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "?",
+                    "parent": "=",
+                    "inputs": { "COSTUME": [1, "bd"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bd": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "g",
+                    "inputs": {},
+                    "fields": {
+                        "COSTUME": ["Screen Shot 2025-07-07 at 3", null]
+                    },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "?": {
+                    "opcode": "looks_setsizeto",
+                    "next": "@",
+                    "parent": "g",
+                    "inputs": { "SIZE": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "@": {
+                    "opcode": "motion_gotoxy",
+                    "next": "[",
+                    "parent": "?",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "[": {
+                    "opcode": "data_setvariableto",
+                    "next": "]",
+                    "parent": "@",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "So I made a contest about 3 months ago to celebrate getting 500 followers."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "]": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "^",
+                    "parent": "[",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "^": {
+                    "opcode": "data_setvariableto",
+                    "next": "_",
+                    "parent": "]",
+                    "inputs": {
+                        "VALUE": [1, [10, "And we got over 900 entries."]]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "_": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "`",
+                    "parent": "^",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "`": {
+                    "opcode": "data_setvariableto",
+                    "next": "{",
+                    "parent": "_",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "However, I haven't been having the motivation to look at entries lately."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "{": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "|",
+                    "parent": "`",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "|": {
+                    "opcode": "data_setvariableto",
+                    "next": "}",
+                    "parent": "{",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [10, "And I'm also busy with other things."]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "}": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "~",
+                    "parent": "|",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "~": {
+                    "opcode": "data_setvariableto",
+                    "next": "aa",
+                    "parent": "}",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "So, I don't really know when the results will be out, but hopefully by the end of 2025 they will be out."
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aa": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "h",
+                    "parent": "~",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "h": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "ab",
+                    "parent": "aa",
+                    "inputs": { "COSTUME": [1, "be"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "be": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "h",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["cat-a", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "ab": {
+                    "opcode": "motion_gotoxy",
+                    "next": "ac",
+                    "parent": "h",
+                    "inputs": { "X": [1, [4, "-84"]], "Y": [1, [4, "-74"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ac": {
+                    "opcode": "looks_setsizeto",
+                    "next": "ad",
+                    "parent": "ab",
+                    "inputs": { "SIZE": [1, [4, "300"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ad": {
+                    "opcode": "data_setvariableto",
+                    "next": "ae",
+                    "parent": "ac",
+                    "inputs": {
+                        "VALUE": [1, [10, "Okay, so now, it's shoutout time!"]]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ae": {
+                    "opcode": "event_broadcast",
+                    "next": "af",
+                    "parent": "ad",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "af": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "ag",
+                    "parent": "ae",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bH": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": null,
+                    "parent": null,
+                    "inputs": { "WORDS": [1, [10, "Welcome"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 119,
+                    "y": 592
+                },
+                "bI": {
+                    "opcode": "control_wait",
+                    "next": null,
+                    "parent": null,
+                    "inputs": { "DURATION": [1, [5, "0.05"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 623,
+                    "y": 527
+                },
+                "bf": {
+                    "opcode": "operator_divide",
+                    "next": null,
+                    "parent": null,
+                    "inputs": {
+                        "NUM1": [3, "bg", [4, ""]],
+                        "NUM2": [1, [4, "30"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 729,
+                    "y": 1306
+                },
+                "bg": {
+                    "opcode": "operator_length",
+                    "next": null,
+                    "parent": "bf",
+                    "inputs": {
+                        "STRING": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "apple"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bh": {
+                    "opcode": "operator_divide",
+                    "next": null,
+                    "parent": null,
+                    "inputs": {
+                        "NUM1": [3, "bi", [4, ""]],
+                        "NUM2": [1, [4, "30"]]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 724,
+                    "y": 1087
+                },
+                "bi": {
+                    "opcode": "operator_length",
+                    "next": null,
+                    "parent": "bh",
+                    "inputs": {
+                        "STRING": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "apple"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ag": {
+                    "opcode": "data_setvariableto",
+                    "next": "ah",
+                    "parent": "af",
+                    "inputs": {
+                        "VALUE": [1, [10, "The shoutout of the day goes to..."]]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ah": {
+                    "opcode": "event_broadcast",
+                    "next": "ai",
+                    "parent": "ag",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ai": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "aj",
+                    "parent": "ah",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aj": {
+                    "opcode": "looks_say",
+                    "next": "ak",
+                    "parent": "ai",
+                    "inputs": { "MESSAGE": [1, [10, ""]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ak": {
+                    "opcode": "control_wait",
+                    "next": "i",
+                    "parent": "aj",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "i": {
+                    "opcode": "sound_playuntildone",
+                    "next": "al",
+                    "parent": "ak",
+                    "inputs": { "SOUND_MENU": [1, "bj"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bj": {
+                    "opcode": "sound_sounds_menu",
+                    "next": null,
+                    "parent": "i",
+                    "inputs": {},
+                    "fields": { "SOUND_MENU": ["Drum Roll", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "al": {
+                    "opcode": "control_wait",
+                    "next": "am",
+                    "parent": "i",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "am": {
+                    "opcode": "looks_say",
+                    "next": "j",
+                    "parent": "al",
+                    "inputs": { "MESSAGE": [1, [10, ""]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "j": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "an",
+                    "parent": "am",
+                    "inputs": { "COSTUME": [1, "bk"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bk": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "j",
+                    "inputs": {},
+                    "fields": {
+                        "COSTUME": ["Screen Shot 2025-07-07 at 11", null]
+                    },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "an": {
+                    "opcode": "looks_setsizeto",
+                    "next": "ao",
+                    "parent": "j",
+                    "inputs": { "SIZE": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ao": {
+                    "opcode": "motion_gotoxy",
+                    "next": "ap",
+                    "parent": "an",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ap": {
+                    "opcode": "data_setvariableto",
+                    "next": "aq",
+                    "parent": "ao",
+                    "inputs": { "VALUE": [1, [10, "abdurrah man hat!"]] },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aq": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "ar",
+                    "parent": "ap",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ar": {
+                    "opcode": "data_setvariableto",
+                    "next": "as",
+                    "parent": "aq",
+                    "inputs": {
+                        "VALUE": [1, [10, "Check out their projects!"]]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "as": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "at",
+                    "parent": "ar",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "at": {
+                    "opcode": "event_broadcast",
+                    "next": "k",
+                    "parent": "as",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "backgroundmusic2", "b*=akNkK#Z*Qf?xH?Nm+"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "k": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "au",
+                    "parent": "at",
+                    "inputs": { "COSTUME": [1, "bl"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bl": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "k",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["cat-a", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "au": {
+                    "opcode": "motion_gotoxy",
+                    "next": "av",
+                    "parent": "k",
+                    "inputs": { "X": [1, [4, "-84"]], "Y": [1, [4, "-74"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "av": {
+                    "opcode": "looks_setsizeto",
+                    "next": "aw",
+                    "parent": "au",
+                    "inputs": { "SIZE": [1, [4, "300"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aw": {
+                    "opcode": "looks_cleargraphiceffects",
+                    "next": "ax",
+                    "parent": "av",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ax": {
+                    "opcode": "looks_gotofrontback",
+                    "next": "ay",
+                    "parent": "aw",
+                    "inputs": {},
+                    "fields": { "FRONT_BACK": ["front", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "ay": {
+                    "opcode": "looks_show",
+                    "next": "az",
+                    "parent": "ax",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "az": {
+                    "opcode": "data_setvariableto",
+                    "next": "aA",
+                    "parent": "ay",
+                    "inputs": {
+                        "VALUE": [
+                            1,
+                            [
+                                10,
+                                "Well, that's all for this episode of Scratch TV News!"
+                            ]
+                        ]
+                    },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aA": {
+                    "opcode": "event_broadcast",
+                    "next": "aB",
+                    "parent": "az",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aB": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "aC",
+                    "parent": "aA",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aC": {
+                    "opcode": "control_wait",
+                    "next": "aD",
+                    "parent": "aB",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aD": {
+                    "opcode": "data_setvariableto",
+                    "next": "aE",
+                    "parent": "aC",
+                    "inputs": { "VALUE": [1, [10, "See you next time!"]] },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aE": {
+                    "opcode": "event_broadcast",
+                    "next": "aF",
+                    "parent": "aD",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aF": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "aG",
+                    "parent": "aE",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aG": {
+                    "opcode": "control_wait",
+                    "next": "aH",
+                    "parent": "aF",
+                    "inputs": { "DURATION": [1, [5, "0.2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aH": {
+                    "opcode": "data_setvariableto",
+                    "next": "aI",
+                    "parent": "aG",
+                    "inputs": { "VALUE": [1, [10, "Bye!"]] },
+                    "fields": {
+                        "VARIABLE": ["thingtotype", ",v+_??!Fl(Mkx.^9$?aq"]
+                    },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aI": {
+                    "opcode": "event_broadcast",
+                    "next": "aJ",
+                    "parent": "aH",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "typeit", "O#Gthx*c8wNEzk@GC}f2"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aJ": {
+                    "opcode": "text2speech_speakAndWait",
+                    "next": "aK",
+                    "parent": "aI",
+                    "inputs": {
+                        "WORDS": [
+                            3,
+                            [12, "thingtotype", ",v+_??!Fl(Mkx.^9$?aq"],
+                            [10, "Hello everyone, Scratch Cat here!"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aK": {
+                    "opcode": "looks_say",
+                    "next": "aL",
+                    "parent": "aJ",
+                    "inputs": { "MESSAGE": [1, [10, ""]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aL": {
+                    "opcode": "control_wait",
+                    "next": "aM",
+                    "parent": "aK",
+                    "inputs": { "DURATION": [1, [5, "1"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aM": {
+                    "opcode": "event_broadcast",
+                    "next": "aN",
+                    "parent": "aL",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "fadeintext", "~.5*wKN0HV4@O6akE~2i"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aN": {
+                    "opcode": "looks_seteffectto",
+                    "next": "l",
+                    "parent": "aM",
+                    "inputs": { "VALUE": [1, [4, "0"]] },
+                    "fields": { "EFFECT": ["GHOST", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "l": {
+                    "opcode": "control_repeat",
+                    "next": "bm",
+                    "parent": "aN",
+                    "inputs": {
+                        "TIMES": [1, [6, "10"]],
+                        "SUBSTACK": [2, "bn"]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bn": {
+                    "opcode": "looks_changeeffectby",
+                    "next": null,
+                    "parent": "l",
+                    "inputs": { "CHANGE": [1, [4, "10"]] },
+                    "fields": { "EFFECT": ["GHOST", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bm": {
+                    "opcode": "looks_hide",
+                    "next": null,
+                    "parent": "l",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                }
+            },
+            "comments": {},
+            "currentCostume": 0,
+            "costumes": [
+                {
+                    "name": "cat-a",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+                    "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+                    "rotationCenterX": 48,
+                    "rotationCenterY": 50
+                },
+                {
+                    "name": "cat-b",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
+                    "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
+                    "rotationCenterX": 46,
+                    "rotationCenterY": 53
+                },
+                {
+                    "name": "Screen Shot 2025-07-07 at 2",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "86e6de33881eb1330065826da847d5a0",
+                    "md5ext": "86e6de33881eb1330065826da847d5a0.svg",
+                    "rotationCenterX": 223.09158438438442,
+                    "rotationCenterY": 139.43224024024022
+                },
+                {
+                    "name": "Screen Shot 2025-07-07 at 3",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "8f5648d9939b68258193627cf04790c3",
+                    "md5ext": "8f5648d9939b68258193627cf04790c3.svg",
+                    "rotationCenterX": 214.38438438438493,
+                    "rotationCenterY": 133.9902402402405
+                },
+                {
+                    "name": "Screen Shot 2025-07-07 at 11",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "5b48a07fb9b5698a75823ba08ee81749",
+                    "md5ext": "5b48a07fb9b5698a75823ba08ee81749.svg",
+                    "rotationCenterX": 181.7898348452212,
+                    "rotationCenterY": 93.71336447447443
+                }
+            ],
+            "sounds": [
+                {
+                    "name": "Meow",
+                    "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                    "dataFormat": "wav",
+                    "format": "",
+                    "rate": 48000,
+                    "sampleCount": 40681,
+                    "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
+                },
+                {
+                    "name": "Bossa Nova",
+                    "assetId": "04ccc72f32e909292adcaf40348be5f3",
+                    "dataFormat": "wav",
+                    "rate": 48000,
+                    "sampleCount": 298873,
+                    "md5ext": "04ccc72f32e909292adcaf40348be5f3.wav"
+                },
+                {
+                    "name": "Drum Roll",
+                    "assetId": "fb12e119d7a88a7f75ab980243f75073",
+                    "dataFormat": "wav",
+                    "rate": 48000,
+                    "sampleCount": 84127,
+                    "md5ext": "fb12e119d7a88a7f75ab980243f75073.wav"
+                }
+            ],
+            "volume": 100,
+            "layerOrder": 1,
+            "visible": false,
+            "x": -84,
+            "y": -74,
+            "size": 300,
+            "direction": 90,
+            "draggable": false,
+            "rotationStyle": "all around"
+        },
+        {
+            "isStage": false,
+            "name": "otherstuff",
+            "variables": {},
+            "lists": {},
+            "broadcasts": {},
+            "blocks": {
+                "bo": {
+                    "opcode": "event_whenflagclicked",
+                    "next": "aO",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 54,
+                    "y": 298
+                },
+                "aO": {
+                    "opcode": "looks_cleargraphiceffects",
+                    "next": "aP",
+                    "parent": "bo",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aP": {
+                    "opcode": "looks_hide",
+                    "next": "aQ",
+                    "parent": "aO",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aQ": {
+                    "opcode": "sound_setvolumeto",
+                    "next": "m",
+                    "parent": "aP",
+                    "inputs": { "VOLUME": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "m": {
+                    "opcode": "sound_play",
+                    "next": "n",
+                    "parent": "aQ",
+                    "inputs": { "SOUND_MENU": [1, "bp"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bp": {
+                    "opcode": "sound_sounds_menu",
+                    "next": null,
+                    "parent": "m",
+                    "inputs": {},
+                    "fields": {
+                        "SOUND_MENU": [
+                            "Broadcast News Short   iMovie Song-Music",
+                            null
+                        ]
+                    },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "n": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "aR",
+                    "parent": "m",
+                    "inputs": { "COSTUME": [1, "bq"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bq": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "n",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["costume1", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "aR": {
+                    "opcode": "motion_gotoxy",
+                    "next": "aS",
+                    "parent": "n",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aS": {
+                    "opcode": "looks_setsizeto",
+                    "next": "aT",
+                    "parent": "aR",
+                    "inputs": { "SIZE": [1, [4, "10"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aT": {
+                    "opcode": "looks_gotofrontback",
+                    "next": "aU",
+                    "parent": "aS",
+                    "inputs": {},
+                    "fields": { "FRONT_BACK": ["front", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aU": {
+                    "opcode": "looks_show",
+                    "next": "o",
+                    "parent": "aT",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "o": {
+                    "opcode": "control_repeat",
+                    "next": "aV",
+                    "parent": "aU",
+                    "inputs": {
+                        "TIMES": [1, [6, "10"]],
+                        "SUBSTACK": [2, "br"]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "br": {
+                    "opcode": "looks_changesizeby",
+                    "next": null,
+                    "parent": "o",
+                    "inputs": { "CHANGE": [1, [4, "10"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aV": {
+                    "opcode": "control_wait",
+                    "next": "p",
+                    "parent": "o",
+                    "inputs": { "DURATION": [1, [5, "3"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "p": {
+                    "opcode": "control_repeat",
+                    "next": "aW",
+                    "parent": "aV",
+                    "inputs": {
+                        "TIMES": [1, [6, "10"]],
+                        "SUBSTACK": [2, "bs"]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bs": {
+                    "opcode": "looks_changesizeby",
+                    "next": null,
+                    "parent": "p",
+                    "inputs": { "CHANGE": [1, [4, "-10"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aW": {
+                    "opcode": "looks_hide",
+                    "next": "aX",
+                    "parent": "p",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aX": {
+                    "opcode": "control_wait",
+                    "next": "aY",
+                    "parent": "aW",
+                    "inputs": { "DURATION": [1, [5, "2"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "aY": {
+                    "opcode": "event_broadcast",
+                    "next": "bt",
+                    "parent": "aX",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "showscratchcat", "2[=M~:]yrtgnb#%,KPB3"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bt": {
+                    "opcode": "event_broadcast",
+                    "next": null,
+                    "parent": "aY",
+                    "inputs": {
+                        "BROADCAST_INPUT": [
+                            1,
+                            [11, "backgroundmusic", "%t``^D3%ZL}Obg+@o)Ou"]
+                        ]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bu": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "aZ",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": [
+                            "backgroundmusic",
+                            "%t``^D3%ZL}Obg+@o)Ou"
+                        ]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 140,
+                    "y": 1356
+                },
+                "aZ": {
+                    "opcode": "sound_setvolumeto",
+                    "next": "a!",
+                    "parent": "bu",
+                    "inputs": { "VOLUME": [1, [4, "15"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a!": {
+                    "opcode": "sound_playuntildone",
+                    "next": null,
+                    "parent": "aZ",
+                    "inputs": { "SOUND_MENU": [1, "bv"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bv": {
+                    "opcode": "sound_sounds_menu",
+                    "next": null,
+                    "parent": "a!",
+                    "inputs": {},
+                    "fields": { "SOUND_MENU": ["Who Likes to Party", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "bw": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "a#",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": [
+                            "backgroundmusic2",
+                            "b*=akNkK#Z*Qf?xH?Nm+"
+                        ]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 106,
+                    "y": 1642
+                },
+                "a#": {
+                    "opcode": "sound_stopallsounds",
+                    "next": "a%",
+                    "parent": "bw",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a%": {
+                    "opcode": "sound_setvolumeto",
+                    "next": "a(",
+                    "parent": "a#",
+                    "inputs": { "VOLUME": [1, [4, "65"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a(": {
+                    "opcode": "control_forever",
+                    "next": null,
+                    "parent": "a%",
+                    "inputs": { "SUBSTACK": [2, "a)"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a)": {
+                    "opcode": "sound_playuntildone",
+                    "next": null,
+                    "parent": "a(",
+                    "inputs": { "SOUND_MENU": [1, "bx"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bx": {
+                    "opcode": "sound_sounds_menu",
+                    "next": null,
+                    "parent": "a)",
+                    "inputs": {},
+                    "fields": {
+                        "SOUND_MENU": ["Cipher - Electronic Light", null]
+                    },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "by": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "a*",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": [
+                            "fadeintext",
+                            "~.5*wKN0HV4@O6akE~2i"
+                        ]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 327,
+                    "y": 2020
+                },
+                "a*": {
+                    "opcode": "control_repeat",
+                    "next": null,
+                    "parent": "by",
+                    "inputs": { "TIMES": [1, [6, "7"]], "SUBSTACK": [2, "bz"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bz": {
+                    "opcode": "sound_changevolumeby",
+                    "next": null,
+                    "parent": "a*",
+                    "inputs": { "VOLUME": [1, [4, "5"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bJ": {
+                    "opcode": "control_wait",
+                    "next": null,
+                    "parent": null,
+                    "inputs": { "DURATION": [1, [5, "1"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 342,
+                    "y": 2282
+                },
+                "bA": {
+                    "opcode": "event_whenbroadcastreceived",
+                    "next": "a+",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {
+                        "BROADCAST_OPTION": [
+                            "fadeintext",
+                            "~.5*wKN0HV4@O6akE~2i"
+                        ]
+                    },
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": -47,
+                    "y": 1967
+                },
+                "a+": {
+                    "opcode": "looks_seteffectto",
+                    "next": "q",
+                    "parent": "bA",
+                    "inputs": { "VALUE": [1, [4, "100"]] },
+                    "fields": { "EFFECT": ["GHOST", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "q": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "a,",
+                    "parent": "a+",
+                    "inputs": { "COSTUME": [1, "bB"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bB": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "q",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["costume2", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "a,": {
+                    "opcode": "motion_gotoxy",
+                    "next": "a-",
+                    "parent": "q",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a-": {
+                    "opcode": "looks_setsizeto",
+                    "next": "a.",
+                    "parent": "a,",
+                    "inputs": { "SIZE": [1, [4, "100"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a.": {
+                    "opcode": "looks_gotofrontback",
+                    "next": "a/",
+                    "parent": "a-",
+                    "inputs": {},
+                    "fields": { "FRONT_BACK": ["front", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a/": {
+                    "opcode": "looks_show",
+                    "next": "a:",
+                    "parent": "a.",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a:": {
+                    "opcode": "control_repeat",
+                    "next": null,
+                    "parent": "a/",
+                    "inputs": {
+                        "TIMES": [1, [6, "10"]],
+                        "SUBSTACK": [2, "bC"]
+                    },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bC": {
+                    "opcode": "looks_changeeffectby",
+                    "next": null,
+                    "parent": "a:",
+                    "inputs": { "CHANGE": [1, [4, "-10"]] },
+                    "fields": { "EFFECT": ["GHOST", null] },
+                    "shadow": false,
+                    "topLevel": false
+                }
+            },
+            "comments": {},
+            "currentCostume": 1,
+            "costumes": [
+                {
+                    "name": "costume1",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "27ae8d30bd466e31676a5c159e6a94db",
+                    "md5ext": "27ae8d30bd466e31676a5c159e6a94db.svg",
+                    "rotationCenterX": 121.85441480524703,
+                    "rotationCenterY": 76.46123
+                },
+                {
+                    "name": "costume2",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "d9f916c642513881d8428bd279dbf06f",
+                    "md5ext": "d9f916c642513881d8428bd279dbf06f.svg",
+                    "rotationCenterX": 204.24283204016533,
+                    "rotationCenterY": 28.980183303303306
+                }
+            ],
+            "sounds": [
+                {
+                    "name": "pop",
+                    "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                    "dataFormat": "wav",
+                    "format": "",
+                    "rate": 48000,
+                    "sampleCount": 1123,
+                    "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+                },
+                {
+                    "name": "Broadcast News Short   iMovie Song-Music",
+                    "assetId": "d7a07547d8fbdc1087a8caa21a2e2a0a",
+                    "dataFormat": "mp3",
+                    "rate": 48000,
+                    "sampleCount": 386751,
+                    "md5ext": "d7a07547d8fbdc1087a8caa21a2e2a0a.mp3"
+                },
+                {
+                    "name": "Who Likes to Party",
+                    "assetId": "df333efacb816170cb9e13202f300bdf",
+                    "dataFormat": "mp3",
+                    "rate": 48000,
+                    "sampleCount": 12359472,
+                    "md5ext": "df333efacb816170cb9e13202f300bdf.mp3"
+                },
+                {
+                    "name": "Cipher - Electronic Light",
+                    "assetId": "8516ae6b59c5e3180e89577aa52b2810",
+                    "dataFormat": "mp3",
+                    "rate": 48000,
+                    "sampleCount": 11100578,
+                    "md5ext": "8516ae6b59c5e3180e89577aa52b2810.mp3"
+                }
+            ],
+            "volume": 100,
+            "layerOrder": 2,
+            "visible": true,
+            "x": 0,
+            "y": 0,
+            "size": 100,
+            "direction": 90,
+            "draggable": false,
+            "rotationStyle": "all around"
+        },
+        {
+            "isStage": false,
+            "name": "Thumbnail",
+            "variables": {},
+            "lists": {},
+            "broadcasts": {},
+            "blocks": {
+                "bD": {
+                    "opcode": "event_whenflagclicked",
+                    "next": "bE",
+                    "parent": null,
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 48,
+                    "y": 64
+                },
+                "bE": {
+                    "opcode": "looks_hide",
+                    "next": null,
+                    "parent": "bD",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a;": {
+                    "opcode": "looks_switchcostumeto",
+                    "next": "a=",
+                    "parent": null,
+                    "inputs": { "COSTUME": [1, "bF"] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": true,
+                    "x": 360,
+                    "y": 200
+                },
+                "bF": {
+                    "opcode": "looks_costume",
+                    "next": null,
+                    "parent": "a;",
+                    "inputs": {},
+                    "fields": { "COSTUME": ["costume1", null] },
+                    "shadow": true,
+                    "topLevel": false
+                },
+                "a=": {
+                    "opcode": "motion_gotoxy",
+                    "next": "a?",
+                    "parent": "a;",
+                    "inputs": { "X": [1, [4, "0"]], "Y": [1, [4, "0"]] },
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "a?": {
+                    "opcode": "looks_gotofrontback",
+                    "next": "bG",
+                    "parent": "a=",
+                    "inputs": {},
+                    "fields": { "FRONT_BACK": ["front", null] },
+                    "shadow": false,
+                    "topLevel": false
+                },
+                "bG": {
+                    "opcode": "looks_show",
+                    "next": null,
+                    "parent": "a?",
+                    "inputs": {},
+                    "fields": {},
+                    "shadow": false,
+                    "topLevel": false
+                }
+            },
+            "comments": {},
+            "currentCostume": 0,
+            "costumes": [
+                {
+                    "name": "costume1",
+                    "bitmapResolution": 1,
+                    "dataFormat": "svg",
+                    "assetId": "b87c2db20cb117897bb74bf52ebdddbf",
+                    "md5ext": "b87c2db20cb117897bb74bf52ebdddbf.svg",
+                    "rotationCenterX": 260.578975568833,
+                    "rotationCenterY": 186.22006500000003
+                }
+            ],
+            "sounds": [
+                {
+                    "name": "pop",
+                    "assetId": "83a9787d4cb6f3b7632b4ddfebf74367",
+                    "dataFormat": "wav",
+                    "format": "",
+                    "rate": 48000,
+                    "sampleCount": 1123,
+                    "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+                }
+            ],
+            "volume": 100,
+            "layerOrder": 3,
+            "visible": true,
+            "x": 0,
+            "y": 0,
+            "size": 100,
+            "direction": 90,
+            "draggable": false,
+            "rotationStyle": "all around"
+        }
+    ],
+    "monitors": [
+        {
+            "id": "timer",
+            "mode": "default",
+            "opcode": "sensing_timer",
+            "params": {},
+            "spriteName": null,
+            "value": 0,
+            "width": 0,
+            "height": 0,
+            "x": 5,
+            "y": 5,
+            "visible": false,
+            "sliderMin": 0,
+            "sliderMax": 100,
+            "isDiscrete": true
+        }
+    ],
+    "extensions": ["text2speech"],
+    "meta": {
+        "semver": "3.0.0",
+        "vm": "0.2.0",
+        "agent": "",
+        "platform": { "name": "TurboWarp", "url": "https://turbowarp.org/" }
+    }
+}
