@@ -162,6 +162,7 @@ version = "0.1.0"
 dependencies = [
  "bytemuck",
  "derive_more",
+ "indexmap",
  "itertools",
  "num_enum",
  "owo-colors",

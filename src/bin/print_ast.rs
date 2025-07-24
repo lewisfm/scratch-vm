@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use scratch_vm::ast::{
-    Block, Event, Field, Input, ProcedureArgument, ProcedurePrototype, ScratchProject, Script,
+    Block, Event, ProcedureArgument, ProcedurePrototype, ScratchProject, Script,
     Sprite, StartCondition, Target, Variable,
 };
 

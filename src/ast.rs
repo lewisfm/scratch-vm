@@ -1,6 +1,6 @@
-use std::{collections::HashMap, rc::Rc};
+use std::{any::type_name, collections::HashMap, rc::Rc, str::FromStr};
 
-use derive_more::{Constructor, From, Into};
+use derive_more::{AsRef, Constructor, From, Into};
 
 use crate::interpreter::value::Value;
 
@@ -91,6 +91,23 @@ pub struct Block {
 }
 
 impl Block {
+    const TEXT_FIELD: &str = "TEXT";
+    const NUM_FIELD: &str = "TEXT";
+    const VAR_FIELD: &str = "VARIABLE";
+    const ARG_NAME_FIELD: &str = "VALUE";
+    const EVENT_FIELD: &str = "BROADCAST_OPTION";
+
+    const TEXT: &str = "text";
+    const NUMBER: &str = "math_number";
+    const INTEGER: &str = "math_integer";
+    const WHOLE_NUMBER: &str = "math_whole_number";
+    const POSITIVE_NUMBER: &str = "math_positive_number";
+    const ANGLE: &str = "math_angle";
+    const VARIABLE: &str = "data_variable";
+    const STRING_ARG: &str = "argument_reporter_string_number";
+    const BOOL_ARG: &str = "argument_reporter_boolean";
+    const EVENT: &str = "event_broadcast_menu";
+
     pub fn new(opcode: impl Into<Rc<str>>) -> Self {
         Self {
             opcode: opcode.into(),
@@ -110,11 +127,11 @@ impl Block {
     }
 
     fn new_number(opcode: impl Into<Rc<str>>, num: impl Into<Rc<str>>) -> Self {
-        Self::new(opcode).with_field("NUM", Field::new(num))
+        Self::new(opcode).with_field("NUM", Field::simple(num))
     }
 
     pub fn text(text: impl Into<Rc<str>>) -> Self {
-        Self::new("text").with_field("TEXT", Field::new(text))
+        Self::new("text").with_field("TEXT", Field::simple(text))
     }
 
     pub fn number(num: impl Into<Rc<str>>) -> Self {
@@ -142,7 +159,7 @@ impl Block {
     }
 
     pub fn param(name: impl Into<Rc<str>>) -> Self {
-        Block::new("argument_reporter_string_number").with_field("VALUE", Field::new(name))
+        Block::new("argument_reporter_string_number").with_field("VALUE", Field::simple(name))
     }
 
     pub fn event(id: impl Into<Rc<str>>, name: impl Into<Rc<str>>) -> Self {
@@ -159,6 +176,64 @@ impl Block {
         self.fields.insert(name.into(), field.into());
         self
     }
+
+    pub fn simple_field(&self, name: &str) -> Rc<str> {
+        if let Some(field) = self.fields.get(name)
+            && field.id.is_none()
+        {
+            field.value.clone()
+        } else {
+            panic!("block {:?} must have a simple field named {name:?}", self.opcode);
+        }
+    }
+
+    pub fn parsed_field<T: FromStr>(&self, name: &str) -> T {
+        if let Some(field) = self.fields.get(name)
+            && field.id.is_none()
+        {
+            if let Ok(parsed) = field.value.parse() {
+                parsed
+            } else {
+                panic!("field {name:?} in block {:?} was not a valid {}", self.opcode, type_name::<T>())
+            }
+        } else {
+            panic!("block {:?} must have a simple field named {name:?}", self.opcode);
+        }
+    }
+
+    pub fn identified_field(&self, name: &str) -> NamedResource {
+        if let Some(field) = self.fields.get(name)
+            && let Some(id) = field.id.clone()
+        {
+            NamedResource::new(id, field.value.clone())
+        } else {
+            panic!("block {:?} must have an identified field named {name:?}", self.opcode);
+        }
+    }
+
+    pub fn var_field(&self, name: &str) -> Variable {
+        self.identified_field(name).into()
+    }
+
+    pub fn try_as_primitive(&self) -> Option<Primitive> {
+        Some(match &*self.opcode {
+            Self::TEXT => Primitive::Text(self.simple_field(Self::TEXT_FIELD)),
+            Self::NUMBER => Primitive::Number(self.parsed_field(Self::NUM_FIELD)),
+            Self::INTEGER => Primitive::Integer(self.parsed_field(Self::NUM_FIELD)),
+            Self::WHOLE_NUMBER => Primitive::WholeNumber(self.parsed_field(Self::NUM_FIELD)),
+            Self::POSITIVE_NUMBER => {
+                let pos_num: f64 = self.parsed_field(Self::NUM_FIELD);
+                if pos_num.is_sign_negative() {
+                    panic!("{pos_num:?} is not a valid positive number");
+                }
+                Primitive::PositiveNumber(pos_num)
+            }
+            Self::ANGLE => Primitive::Angle(self.parsed_field(Self::NUM_FIELD)),
+            Self::VARIABLE => Primitive::Variable(self.identified_field(Self::VAR_FIELD).into()),
+            Self::EVENT => Primitive::Event(self.identified_field(Self::EVENT_FIELD).into()),
+            _ => return None,
+        })
+    }
 }
 
 impl From<Variable> for Block {
@@ -171,6 +246,18 @@ impl From<Event> for Block {
     fn from(value: Event) -> Self {
         Self::event(value.0.id, value.0.name)
     }
+}
+
+
+pub enum Primitive {
+    Text(Rc<str>),
+    Number(f64),
+    Integer(u64),
+    WholeNumber(i64),
+    PositiveNumber(f64),
+    Angle(f64),
+    Variable(Variable),
+    Event(Event),
 }
 
 #[derive(Debug)]
@@ -206,7 +293,7 @@ pub struct Field {
 }
 
 impl Field {
-    pub fn new(value: impl Into<Rc<str>>) -> Self {
+    pub fn simple(value: impl Into<Rc<str>>) -> Self {
         Self {
             value: value.into(),
             id: None,
@@ -220,11 +307,19 @@ impl Field {
         }
     }
 
-    pub fn to_named_resource(self) -> Option<NamedResource> {
-        self.id.map(|id| NamedResource {
-            name: self.value,
-            id,
+    pub fn try_to_named_resource(&self) -> Option<NamedResource> {
+        self.id.as_ref().map(|id| NamedResource {
+            name: self.value.clone(),
+            id: id.clone(),
         })
+    }
+
+    pub fn unwrap_variable(&self) -> Variable {
+        let Some(resource) = self.try_to_named_resource() else {
+            panic!("{self:?} must be representable as variable");
+        };
+
+        resource.into()
     }
 }
 
@@ -241,7 +336,7 @@ pub struct NamedResource {
     pub name: Rc<str>,
 }
 
-#[derive(Debug, Clone, From, Into)]
+#[derive(Debug, Clone, From, Into, AsRef)]
 pub struct Variable(NamedResource);
 
 impl Variable {
@@ -252,9 +347,17 @@ impl Variable {
     pub fn into_inner(self) -> NamedResource {
         self.0
     }
+
+    pub fn id(&self) -> Rc<str> {
+        self.0.id.clone()
+    }
+
+    pub fn name(&self) -> Rc<str> {
+        self.0.name.clone()
+    }
 }
 
-#[derive(Debug, Clone, From, Into)]
+#[derive(Debug, Clone, From, Into, AsRef)]
 pub struct Event(NamedResource);
 
 impl Event {
@@ -264,5 +367,13 @@ impl Event {
 
     pub fn into_inner(self) -> NamedResource {
         self.0
+    }
+
+    pub fn id(&self) -> Rc<str> {
+        self.0.id.clone()
+    }
+
+    pub fn name(&self) -> Rc<str> {
+        self.0.name.clone()
     }
 }

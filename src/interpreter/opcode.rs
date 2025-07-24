@@ -1,6 +1,6 @@
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 
-use crate::interpreter::{id::Id, value::Event};
+use crate::interpreter::{id::Id, value::EventValue};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, IntoPrimitive, TryFromPrimitive)]
 #[repr(u32)]
@@ -21,7 +21,8 @@ pub enum Opcode {
 
     PushZero,
     PushConstant,
-    PushUnsignedInt,
+    PushUInt32,
+    PushNumber,
 
     Add,
 
@@ -49,5 +50,5 @@ pub enum BuiltinProcedure {
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Trigger {
     OnStart,
-    Event(Id<Event>),
+    Event(Id<EventValue>),
 }

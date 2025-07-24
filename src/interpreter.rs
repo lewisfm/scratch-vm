@@ -1,5 +1,4 @@
 use std::{
-    borrow::Cow,
     collections::{HashMap, VecDeque, hash_map::Entry},
     convert::identity,
     rc::Rc,
@@ -7,13 +6,12 @@ use std::{
 
 use itertools::Itertools;
 use num_enum::TryFromPrimitive;
-use owo_colors::OwoColorize;
 use unicode_segmentation::UnicodeSegmentation;
 
 use crate::interpreter::{
     id::Id,
     opcode::{BuiltinProcedure, Opcode, Trigger},
-    value::{Event, Procedure, Value, Var},
+    value::{EventValue, ProcedureValue, Value, VarState},
 };
 
 pub mod id;
@@ -22,15 +20,15 @@ pub mod value;
 
 pub struct Program {
     constants: Box<[Value]>,
-    vars: Vec<Var>,
-    procedures: Vec<Rc<Procedure>>,
-    events: Vec<Event>,
+    vars: Vec<VarState>,
+    procedures: Vec<Rc<ProcedureValue>>,
+    events: Vec<EventValue>,
     task_queue: VecDeque<Task>,
-    triggers: HashMap<Trigger, Vec<Rc<Procedure>>>,
+    triggers: HashMap<Trigger, Vec<Rc<ProcedureValue>>>,
 }
 
 impl Program {
-    pub fn new(constants: Box<[Value]>, vars: Vec<Var>) -> Self {
+    pub fn new(constants: Box<[Value]>, vars: Vec<VarState>) -> Self {
         Self {
             constants,
             vars,
@@ -41,8 +39,8 @@ impl Program {
         }
     }
 
-    pub fn register(&mut self, procedure: impl Into<Rc<Procedure>>) -> Rc<Procedure> {
-        let proc: Rc<Procedure> = procedure.into();
+    pub fn register(&mut self, procedure: impl Into<Rc<ProcedureValue>>) -> Rc<ProcedureValue> {
+        let proc: Rc<ProcedureValue> = procedure.into();
         proc.ident
             .set(self.procedures.len().into())
             .expect("procedure id settable");
@@ -50,13 +48,13 @@ impl Program {
         proc
     }
 
-    pub fn register_event(&mut self, name: impl Into<Rc<str>>) -> Id<Event> {
+    pub fn register_event(&mut self, name: impl Into<Rc<str>>) -> Id<EventValue> {
         let idx = self.events.len();
-        self.events.push(Event::new(name));
+        self.events.push(EventValue::new(name));
         idx.into()
     }
 
-    pub fn add_trigger(&mut self, proc: Rc<Procedure>, trigger: Trigger) {
+    pub fn add_trigger(&mut self, proc: Rc<ProcedureValue>, trigger: Trigger) {
         match self.triggers.entry(trigger) {
             Entry::Occupied(mut entry) => {
                 entry.get_mut().push(proc);
@@ -90,7 +88,7 @@ impl Program {
         }
     }
 
-    fn dbg_string<'a>(&self, value: &'a Value) -> Rc<str> {
+    fn dbg_string(&self, value: &Value) -> Rc<str> {
         match value {
             &Value::Procedure(id) => {
                 let proc_name = self
@@ -109,17 +107,17 @@ impl Program {
         }
     }
 
-    pub fn read_var(&mut self, id: Id<Var>) -> Value {
+    pub fn read_var(&mut self, id: Id<VarState>) -> Value {
         self.vars[id.get()].as_ref().borrow().clone()
     }
 
-    pub fn set_var(&mut self, id: Id<Var>, value: Value) {
+    pub fn set_var(&mut self, id: Id<VarState>, value: Value) {
         *self.vars[id.get()].as_ref().borrow_mut() = value;
     }
 }
 
 pub struct Task {
-    procedure: Rc<Procedure>,
+    procedure: Rc<ProcedureValue>,
     location: usize,
     scopes: Vec<Box<[Value]>>,
     stack: Vec<Value>,
@@ -127,7 +125,7 @@ pub struct Task {
 }
 
 impl Task {
-    pub fn new(procedure: Rc<Procedure>) -> Self {
+    pub fn new(procedure: Rc<ProcedureValue>) -> Self {
         assert_eq!(procedure.param_count, 0);
         let scope = vec![Value::default(); procedure.locals.len()];
 
@@ -229,13 +227,13 @@ impl Task {
             Opcode::PushZero => {
                 self.stack.push(Value::Number(0.0));
             }
-            Opcode::PushUnsignedInt => {
+            Opcode::PushUInt32 => {
                 let uint = self.read_immediate();
                 self.stack.push(Value::Number(uint as f64));
             }
 
             Opcode::DispatchEvent => {
-                let id = Id::<Event>::from(self.read_immediate() as usize);
+                let id = Id::<EventValue>::from(self.read_immediate() as usize);
                 // let dbg_msg = format!("> {}", program.dbg_string(&id.into()));
                 // println!("  {}", dbg_msg.bright_black());
                 program.dispatch(Trigger::Event(id));
@@ -312,16 +310,16 @@ impl Task {
 
             Opcode::SetVar => {
                 let new_value = self.stack.pop().unwrap();
-                program.set_var(self.read_id::<Var>(), new_value);
+                program.set_var(self.read_id::<VarState>(), new_value);
             }
             Opcode::ClearVar => {
-                program.set_var(self.read_id::<Var>(), Value::default());
+                program.set_var(self.read_id::<VarState>(), Value::default());
             }
             Opcode::ZeroVar => {
-                program.set_var(self.read_id::<Var>(), Value::Number(0.0));
+                program.set_var(self.read_id::<VarState>(), Value::Number(0.0));
             }
             Opcode::PushVar => {
-                let id = self.read_id::<Var>();
+                let id = self.read_id::<VarState>();
                 self.stack.push(program.read_var(id));
             }
 

@@ -14,8 +14,8 @@ pub enum Value {
     Number(f64),
     Boolean(bool),
     ReturnLocation(usize),
-    Event(Id<Event>),
-    Procedure(Id<Procedure>),
+    Event(Id<EventValue>),
+    Procedure(Id<ProcedureValue>),
 }
 
 impl Value {
@@ -59,7 +59,7 @@ impl Default for Value {
     }
 }
 
-pub struct Procedure {
+pub struct ProcedureValue {
     name: Option<Rc<str>>,
     pub(crate) param_count: usize,
     pub(crate) locals: Box<[Local]>,
@@ -67,7 +67,7 @@ pub struct Procedure {
     pub(super) ident: OnceCell<Id<Self>>,
 }
 
-impl Procedure {
+impl ProcedureValue {
     pub fn new(
         name: Option<Rc<str>>,
         param_count: usize,
@@ -105,11 +105,11 @@ impl Procedure {
 }
 
 #[derive(Debug, Clone)]
-pub struct Event {
+pub struct EventValue {
     name: Rc<str>,
 }
 
-impl Event {
+impl EventValue {
     pub fn new(name: impl Into<Rc<str>>) -> Self {
         Self { name: name.into() }
     }
@@ -120,12 +120,12 @@ impl Event {
 }
 
 #[derive(Debug, Clone)]
-pub struct Var {
+pub struct VarState {
     name: Rc<str>,
     value: RefCell<Value>,
 }
 
-impl Var {
+impl VarState {
     pub fn new(name: impl Into<Rc<str>>) -> Self {
         Self {
             name: name.into(),
@@ -134,7 +134,7 @@ impl Var {
     }
 }
 
-impl AsRef<RefCell<Value>> for Var {
+impl AsRef<RefCell<Value>> for VarState {
     fn as_ref(&self) -> &RefCell<Value> {
         &self.value
     }

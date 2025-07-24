@@ -1,23 +1,23 @@
 use scratch_vm::interpreter::{
     Program,
     opcode::{BuiltinProcedure, Opcode, Trigger},
-    value::{Local, Procedure, Value, Var},
+    value::{Local, ProcedureValue, Value, VarState},
 };
 
 fn main() {
     let mut program = Program::new(
         [Value::String("hello everyone...".into())].into(),
         [
-            Var::new("thingtotype"),
-            Var::new("textsofar"),
-            Var::new("c"),
+            VarState::new("thingtotype"),
+            VarState::new("textsofar"),
+            VarState::new("c"),
         ]
         .into(),
     );
 
     let typeit = program.register_event("typeit");
 
-    let type_proc = program.register(Procedure::new(
+    let type_proc = program.register(ProcedureValue::new(
         Some("type %s".into()),
         1,
         [Local::from("text"), Local::from("repeats_remaining_0")].into(),
@@ -53,7 +53,7 @@ fn main() {
                 1,
                 // Loop logic end
                 // c += 1
-                Opcode::PushUnsignedInt as _,
+                Opcode::PushUInt32 as _,
                 1,
                 Opcode::PushVar as _,
                 2,
@@ -107,7 +107,7 @@ fn main() {
         },
     ));
 
-    let typeit_handler = program.register(Procedure::new(
+    let typeit_handler = program.register(ProcedureValue::new(
         Some("say_hi".into()),
         0,
         [].into(),
@@ -122,7 +122,7 @@ fn main() {
     ));
     program.add_trigger(typeit_handler, Trigger::Event(typeit));
 
-    let main = program.register(Procedure::new(
+    let main = program.register(ProcedureValue::new(
         Some("main".into()),
         0,
         [].into(),
