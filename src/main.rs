@@ -1,10 +1,10 @@
-use scratch_vm::interpreter::{
-    Program,
-    opcode::{BuiltinProcedure, Opcode, Trigger},
-    value::{Local, ProcedureValue, Value, VarState},
-};
+use scratch_vm::{codegen::BlockLibrary, interpreter::{
+    opcode::{BuiltinProcedure, Opcode, Trigger}, value::{Local, ProcedureValue, Value, VarState}, Program
+}};
 
 fn main() {
+    let library = BlockLibrary::default();
+
     let mut program = Program::new(
         [Value::String("hello everyone...".into())].into(),
         [
@@ -13,6 +13,7 @@ fn main() {
             VarState::new("c"),
         ]
         .into(),
+        library.into_runtime_callbacks(),
     );
 
     let typeit = program.register_event("typeit");

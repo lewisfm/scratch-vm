@@ -6,13 +6,14 @@ use std::{
 
 use itertools::Itertools;
 use num_enum::TryFromPrimitive;
+use owo_colors::OwoColorize;
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::interpreter::{
+use crate::{codegen::{BlockLibrary, BlockRuntimeLogic}, interpreter::{
     id::Id,
     opcode::{BuiltinProcedure, Opcode, Trigger},
     value::{EventValue, ProcedureValue, Value, VarState},
-};
+}};
 
 pub mod id;
 pub mod opcode;
@@ -22,17 +23,19 @@ pub struct Program {
     constants: Box<[Value]>,
     vars: Vec<VarState>,
     procedures: Vec<Rc<ProcedureValue>>,
+    builtins: Vec<Option<BlockRuntimeLogic>>,
     events: Vec<EventValue>,
     task_queue: VecDeque<Task>,
     triggers: HashMap<Trigger, Vec<Rc<ProcedureValue>>>,
 }
 
 impl Program {
-    pub fn new(constants: Box<[Value]>, vars: Vec<VarState>) -> Self {
+    pub fn new(constants: Box<[Value]>, vars: Vec<VarState>, builtins: Vec<Option<BlockRuntimeLogic>>) -> Self {
         Self {
             constants,
             vars,
             procedures: Vec::new(),
+            builtins,
             events: Vec::new(),
             task_queue: VecDeque::new(),
             triggers: HashMap::new(),
@@ -88,7 +91,7 @@ impl Program {
         }
     }
 
-    fn dbg_string(&self, value: &Value) -> Rc<str> {
+    pub fn dbg_string(&self, value: &Value) -> Rc<str> {
         match value {
             &Value::Procedure(id) => {
                 let proc_name = self
@@ -211,12 +214,12 @@ impl Task {
     fn run_opcode(&mut self, program: &mut Program) -> bool {
         let opcode = self.read_opcode();
 
-        // let debug_message = format!(
-        //     "$ {opcode:?} proc={:?} stack={:?}",
-        //     self.procedure.name(),
-        //     self.stack,
-        // );
-        // println!("{}", debug_message.bright_black());
+        let debug_message = format!(
+            "$ {opcode:?} proc={:?} stack={:?}",
+            self.procedure.name(),
+            self.stack,
+        );
+        println!("{}", debug_message.bright_black());
 
         match opcode {
             Opcode::PushConstant => {
@@ -234,16 +237,20 @@ impl Task {
 
             Opcode::DispatchEvent => {
                 let id = Id::<EventValue>::from(self.read_immediate() as usize);
-                // let dbg_msg = format!("> {}", program.dbg_string(&id.into()));
-                // println!("  {}", dbg_msg.bright_black());
+                let dbg_msg = format!("> {}", program.dbg_string(&id.into()));
+                println!("  {}", dbg_msg.bright_black());
                 program.dispatch(Trigger::Event(id));
                 return true;
             }
             Opcode::CallBuiltin => {
                 let imm = self.read_immediate();
-                let procedure = BuiltinProcedure::try_from_primitive(imm).unwrap();
 
-                self.run_builtin(procedure, program);
+                let mut builtin = program.builtins.remove(imm as usize);
+                if let Some(builtin) = builtin.as_deref_mut() {
+                    builtin(RuntimeContext { task: self, program });
+                } else {
+                    unimplemented!("runtime logic for builtin {imm}");
+                }
 
                 return true;
             }
@@ -360,8 +367,7 @@ impl Task {
     fn run_builtin(&mut self, procedure: BuiltinProcedure, program: &mut Program) {
         match procedure {
             BuiltinProcedure::Say => {
-                let param = self.stack.pop().unwrap();
-                println!("{}", program.dbg_string(&param));
+
             }
             BuiltinProcedure::LengthOf => {
                 let param = self.stack.pop().unwrap();
@@ -383,5 +389,28 @@ impl Task {
             }
             _ => todo!("{procedure:?}"),
         }
+    }
+}
+
+pub struct RuntimeContext<'a> {
+    task: &'a mut Task,
+    program: &'a mut Program,
+}
+
+impl RuntimeContext<'_> {
+    pub fn stack(&self) -> &Vec<Value> {
+        &self.task.stack
+    }
+
+    pub fn stack_mut(&mut self) -> &mut Vec<Value> {
+        &mut self.task.stack
+    }
+
+    pub fn program(&self) -> &Program {
+        self.program
+    }
+
+    pub fn program_mut(&mut self) -> &mut Program {
+        self.program
     }
 }
