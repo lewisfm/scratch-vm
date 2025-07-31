@@ -1,16 +1,16 @@
 use std::{
     borrow::Cow,
     cell::{OnceCell, RefCell},
-    rc::Rc,
+    rc::Rc, sync::Arc,
 };
 
-use derive_more::{From, Unwrap};
+use derive_more::{AsRef, From, Unwrap};
 
-use crate::interpreter::id::Id;
+use crate::{ast::Variable, interpreter::id::Id};
 
-#[derive(Debug, Clone, Unwrap, From)]
+#[derive(Debug, Clone, Unwrap, From, PartialEq)]
 pub enum Value {
-    String(Rc<str>),
+    String(Arc<str>),
     Number(f64),
     Boolean(bool),
     ReturnLocation(usize),
@@ -19,7 +19,7 @@ pub enum Value {
 }
 
 impl Value {
-    pub fn cast_string(&self) -> Rc<str> {
+    pub fn cast_string(&self) -> Arc<str> {
         match self {
             Value::String(string) => string.clone(),
             &Value::Number(num) => num.to_string().into(),
@@ -53,6 +53,12 @@ impl From<String> for Value {
     }
 }
 
+impl From<&str> for Value {
+    fn from(value: &str) -> Self {
+        Self::String(value.into())
+    }
+}
+
 impl Default for Value {
     fn default() -> Self {
         Self::String("".into())
@@ -60,7 +66,7 @@ impl Default for Value {
 }
 
 pub struct ProcedureValue {
-    name: Option<Rc<str>>,
+    name: Option<Arc<str>>,
     pub(crate) param_count: usize,
     pub(crate) locals: Box<[Local]>,
     bytecode: Box<[u32]>,
@@ -69,7 +75,7 @@ pub struct ProcedureValue {
 
 impl ProcedureValue {
     pub fn new(
-        name: Option<Rc<str>>,
+        name: Option<Arc<str>>,
         param_count: usize,
         locals: Box<[Local]>,
         instructions: Box<[u32]>,
@@ -106,11 +112,11 @@ impl ProcedureValue {
 
 #[derive(Debug, Clone)]
 pub struct EventValue {
-    name: Rc<str>,
+    name: Arc<str>,
 }
 
 impl EventValue {
-    pub fn new(name: impl Into<Rc<str>>) -> Self {
+    pub fn new(name: impl Into<Arc<str>>) -> Self {
         Self { name: name.into() }
     }
 
@@ -121,15 +127,15 @@ impl EventValue {
 
 #[derive(Debug, Clone)]
 pub struct VarState {
-    name: Rc<str>,
-    value: RefCell<Value>,
+    pub name: Arc<str>,
+    pub value: RefCell<Value>,
 }
 
 impl VarState {
-    pub fn new(name: impl Into<Rc<str>>) -> Self {
+    pub fn new(var: Variable) -> Self {
         Self {
-            name: name.into(),
-            value: Value::default().into(),
+            name: var.reference.name(),
+            value: var.initial_value.into(),
         }
     }
 }
@@ -141,11 +147,11 @@ impl AsRef<RefCell<Value>> for VarState {
 }
 
 pub struct Local {
-    name: Option<Rc<str>>,
+    name: Option<Arc<str>>,
 }
 
 impl Local {
-    pub fn new(name: Option<Rc<str>>) -> Self {
+    pub fn new(name: Option<Arc<str>>) -> Self {
         Self { name }
     }
 }

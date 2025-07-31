@@ -1,16 +1,12 @@
-use std::{collections::HashMap, fmt::Debug, rc::Rc, sync::Arc};
+use std::{collections::HashMap, fmt::Debug, mem, rc::Rc, sync::Arc};
 
 use bon::bon;
 use derive_more::{From, Into};
 use indexmap::{IndexMap, IndexSet};
 
 use crate::{
-    ast::{Block, Field, Input, Primitive, Script, Variable},
-    interpreter::{
-        self,
-        opcode::Opcode,
-        value::{Value, VarState}, RuntimeContext,
-    },
+    ast::{Block, Field, Input, Primitive, Script, Variable, VariableRef},
+    interpreter::{self, RuntimeContext, opcode::Opcode, value::Value},
 };
 
 pub type BlockCompileLogic = Arc<dyn Fn(CompileContext<'_>) + Send + Sync>;
@@ -129,7 +125,8 @@ impl BlockLibrary {
     }
 
     pub fn into_runtime_callbacks(self) -> Vec<Option<BlockRuntimeLogic>> {
-        self.blocks.into_values()
+        self.blocks
+            .into_values()
             .map(|storage| storage.runtime_logic)
             .collect()
     }
@@ -181,13 +178,13 @@ pub struct CompileContext<'a> {
 
 #[derive(Debug)]
 pub struct ScriptCompiler {
-    pub target: TargetContext,
+    pub target: Arc<TargetContext>,
     pub library: Arc<BlockLibrary>,
     pub data: Vec<u32>,
 }
 
 impl ScriptCompiler {
-    pub fn new(target: TargetContext, library: Arc<BlockLibrary>) -> Self {
+    pub fn new(target: Arc<TargetContext>, library: Arc<BlockLibrary>) -> Self {
         Self {
             target,
             library,
@@ -202,7 +199,7 @@ impl ScriptCompiler {
         self.write_op(Opcode::Return);
     }
 
-    pub fn set_var(&mut self, variable: Variable, value: Input) {
+    pub fn set_var(&mut self, variable: VariableRef, value: Input) {
         let handle = self.target.var(variable);
 
         self.push_value(&value);
@@ -301,33 +298,65 @@ impl ScriptCompiler {
     }
 }
 
-#[derive(Debug, Clone, Default)]
-pub struct TargetContext {
-    pub variables: IndexMap<Rc<str>, Rc<str>>,
-    pub text_consts: IndexSet<Rc<str>>,
+#[derive(Debug, Clone)]
+pub struct ProjectContext {
+    pub variables: IndexMap<Arc<str>, Variable>,
+    pub text_consts: IndexSet<Arc<str>>,
 }
 
-impl TargetContext {
-    pub fn var(&mut self, var: Variable) -> VarHandle {
-        let (idx, _exists) = self.variables.insert_full(var.id(), var.name());
-        VarHandle::from(idx as u32)
+impl ProjectContext {
+    pub fn new(variables: impl IntoIterator<Item = Variable>, text_consts: IndexSet<Arc<str>>) -> Self {
+        Self {
+            variables: IndexMap::from_iter(variables.into_iter().map(|var| (var.id(), var))),
+            text_consts: IndexSet::from_iter(text_consts),
+        }
     }
 
-    pub fn text(&mut self, value: Rc<str>) -> ConstantHandle {
-        let (idx, _exists) = self.text_consts.insert_full(value);
+    pub fn text(&self, value: Arc<str>) -> ConstantHandle {
+        let idx = self.text_consts.get_index_of(&value).expect("Text missing from context pool");
         ConstantHandle::from(idx as u32)
     }
 
-    pub fn into_program(self, builtins: Vec<Option<BlockRuntimeLogic>>) -> interpreter::Program {
-        let constants = self.text_consts.into_iter().map(Value::String).collect();
+    pub fn take_constants(&mut self) -> Box<[Value]> {
+        self.text_consts.drain(..).map(Value::String).collect()
+    }
+}
 
-        let vars = self
+#[derive(Debug, Clone)]
+pub struct TargetContext {
+    pub project: Arc<ProjectContext>,
+    pub variables: IndexMap<Arc<str>, Variable>,
+}
+
+impl TargetContext {
+    pub fn new(
+        project_ctx: Arc<ProjectContext>,
+        sprite_vars: impl IntoIterator<Item = Variable>,
+    ) -> Self {
+        let mut vars_lookup_map = project_ctx.variables.clone();
+        vars_lookup_map.extend(sprite_vars.into_iter().map(|var| (var.id(), var)));
+
+        Self {
+            variables: vars_lookup_map,
+            project: project_ctx,
+        }
+    }
+
+    pub fn var(&self, var: VariableRef) -> VarHandle {
+        let idx = self
             .variables
-            .into_iter()
-            .map(|(_id, name)| VarState::new(name))
-            .collect();
+            .get_index_of(&var.id())
+            .expect("unknown variable");
 
-        interpreter::Program::new(constants, vars, builtins)
+        VarHandle::from(idx as u32)
+    }
+
+    pub fn text(&self, value: Arc<str>) -> ConstantHandle {
+        self.project.text(value)
+    }
+
+    pub fn take_vars(&mut self) -> Vec<Variable> {
+        self.variables.drain(..).map(|(_id, state)| state).collect()
     }
 }
 

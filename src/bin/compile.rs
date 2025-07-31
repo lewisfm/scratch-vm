@@ -1,13 +1,16 @@
 use std::{collections::HashMap, sync::Arc};
 
 use scratch_vm::{
-    ast::{Block, ScratchProject, Script, Sprite, StartCondition, Target, Variable},
+    ast::{Block, project::ScratchProject, Script, Sprite, StartCondition, Target, VariableRef},
     codegen::{BlockLibrary, ScriptCompiler, TargetContext},
-    interpreter::{opcode::Trigger, value::ProcedureValue, Program},
+    interpreter::{opcode::Trigger, value::{ProcedureValue, Value}, Program},
 };
 
 fn main() {
-    let thing_to_type = Variable::new(",v+_??!Fl(Mkx.^9$?aq", "thing_to_type");
+    let thing_to_type = VariableRef::new(",v+_??!Fl(Mkx.^9$?aq", "thing_to_type");
+    let target = TargetContext::new(HashMap::from([
+        (thing_to_type.clone(), Value::from("")),
+    ]));
 
     let flag_script = Script {
         start_condition: StartCondition::FlagClicked,
@@ -20,9 +23,8 @@ fn main() {
     };
 
     let library = Arc::new(BlockLibrary::default());
-    let target = TargetContext::default();
 
-    let mut compiler = ScriptCompiler::new(target, library.clone());
+    let mut compiler = ScriptCompiler::new(target, library);
     compiler.compile(&flag_script);
 
     dbg!(&compiler);
@@ -30,7 +32,9 @@ fn main() {
     let library = Arc::into_inner(compiler.library).unwrap();
     let builtins = library.into_runtime_callbacks();
 
-    let mut program = compiler.target.into_program(builtins);
+    let constants = compiler.target.take_constants();
+    let var_states = compiler.target.take_vars();
+    let mut program = Program::new(constants, var_states, builtins);
 
     let compiled_script = program.register(ProcedureValue::new(
         None,

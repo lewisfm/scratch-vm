@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
 use scratch_vm::ast::{
-    Block, Event, ProcedureArgument, ProcedurePrototype, ScratchProject, Script,
-    Sprite, StartCondition, Target, Variable,
+    Block, Event, ProcedureArgument, ProcedurePrototype, project::ScratchProject, Script,
+    Sprite, StartCondition, Target, VariableRef,
 };
 
 fn main() {
-    let thingtotype = Variable::new(",v+_??!Fl(Mkx.^9$?aq", "thingtotype");
-    let textsofar = Variable::new("yz?6:NTcXFFE%NTLQ!@G", "textsofar");
-    let c = Variable::new("ziG}OJfdDo2+FuOH7^4=", "c");
+    let thingtotype = VariableRef::new(",v+_??!Fl(Mkx.^9$?aq", "thingtotype");
+    let textsofar = VariableRef::new("yz?6:NTcXFFE%NTLQ!@G", "textsofar");
+    let c = VariableRef::new("ziG}OJfdDo2+FuOH7^4=", "c");
 
     let typeit = Event::new("O#Gthx*c8wNEzk@GC}f2", "typeit");
 

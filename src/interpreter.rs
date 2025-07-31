@@ -1,7 +1,7 @@
 use std::{
-    collections::{HashMap, VecDeque, hash_map::Entry},
+    collections::{hash_map::Entry, HashMap, VecDeque},
     convert::identity,
-    rc::Rc,
+    rc::Rc, sync::Arc,
 };
 
 use itertools::Itertools;
@@ -51,7 +51,7 @@ impl Program {
         proc
     }
 
-    pub fn register_event(&mut self, name: impl Into<Rc<str>>) -> Id<EventValue> {
+    pub fn register_event(&mut self, name: impl Into<Arc<str>>) -> Id<EventValue> {
         let idx = self.events.len();
         self.events.push(EventValue::new(name));
         idx.into()
@@ -91,7 +91,7 @@ impl Program {
         }
     }
 
-    pub fn dbg_string(&self, value: &Value) -> Rc<str> {
+    pub fn dbg_string(&self, value: &Value) -> Arc<str> {
         match value {
             &Value::Procedure(id) => {
                 let proc_name = self
@@ -194,7 +194,7 @@ impl Task {
         self.pop_n_and_map(|v| v.cast_number())
     }
 
-    fn pop_strings<const N: usize>(&mut self) -> [Rc<str>; N] {
+    fn pop_strings<const N: usize>(&mut self) -> [Arc<str>; N] {
         self.pop_n_and_map(|v| v.cast_string())
     }
 

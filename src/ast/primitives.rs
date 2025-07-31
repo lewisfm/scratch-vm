@@ -18,7 +18,7 @@ pub enum Primitive {
 }
 
 #[derive(Debug, From, Into, Constructor)]
-pub struct Text(pub Rc<str>);
+pub struct Text(pub Arc<str>);
 
 pub mod math {
     use super::*;
