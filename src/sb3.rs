@@ -167,7 +167,7 @@ impl From<Sb3Project> for ScratchProject {
         let events = stage
             .broadcasts
             .iter()
-            .map(|(id, name)| Event::new(id.clone(), name.clone()))
+            .map(|(id, name)| (id.clone(), Event::new(id.clone(), name.clone())))
             .collect();
 
         let global_vars = deserialize_variables(&mut stage);

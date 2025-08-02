@@ -6,13 +6,13 @@ fn main() {
     let library = BlockLibrary::default();
 
     let mut program = Program::new(
-        [Value::String("hello everyone...".into())].into(),
         [
             VarState::empty("thingtotype"),
             VarState::empty("textsofar"),
             VarState::empty("c"),
         ]
         .into(),
+        [Value::String("hello everyone...".into())].into(),
         library.into_runtime_callbacks(),
     );
 
@@ -141,5 +141,5 @@ fn main() {
     program.add_trigger(main, Trigger::OnStart);
 
     program.dispatch(Trigger::OnStart);
-    program.run();
+    program.run_frame();
 }

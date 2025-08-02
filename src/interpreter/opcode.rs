@@ -12,6 +12,7 @@ pub enum Opcode {
     DecVar,
     ZeroVar,
     ClearVar,
+    ChangeVar,
 
     PushLocal,
     SetLocal,
@@ -23,6 +24,7 @@ pub enum Opcode {
     PushConstant,
     PushUInt32,
     PushNumber,
+    PeekStack,
 
     Add,
 
@@ -36,6 +38,7 @@ pub enum Opcode {
     JumpIfFalse,
     Return,
     Yield,
+    Sleep,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, IntoPrimitive, TryFromPrimitive)]

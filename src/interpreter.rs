@@ -1,7 +1,10 @@
 use std::{
-    collections::{hash_map::Entry, HashMap, VecDeque},
+    cmp::Reverse,
+    collections::{BinaryHeap, HashMap, VecDeque, hash_map::Entry},
     convert::identity,
-    rc::Rc, sync::Arc,
+    rc::Rc,
+    sync::Arc,
+    time::{Duration, Instant},
 };
 
 use itertools::Itertools;
@@ -9,36 +12,54 @@ use num_enum::TryFromPrimitive;
 use owo_colors::OwoColorize;
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::{codegen::{BlockLibrary, BlockRuntimeLogic}, interpreter::{
-    id::Id,
-    opcode::{BuiltinProcedure, Opcode, Trigger},
-    value::{EventValue, ProcedureValue, Value, VarState},
-}};
+use crate::{
+    ast::Target,
+    blocks::{BlockRuntimeLibrary, BlockRuntimeLogic},
+    interpreter::{
+        id::Id,
+        opcode::{BuiltinProcedure, Opcode, Trigger},
+        value::{EventValue, ProcedureValue, Value, VarState},
+    },
+};
 
 pub mod id;
 pub mod opcode;
 pub mod value;
 
+#[derive(Debug)]
 pub struct Program {
     constants: Box<[Value]>,
-    vars: Vec<VarState>,
+    global_vars: Vec<VarState>,
     procedures: Vec<Rc<ProcedureValue>>,
-    builtins: Vec<Option<BlockRuntimeLogic>>,
+    builtins: Option<BlockRuntimeLibrary>,
     events: Vec<EventValue>,
-    task_queue: VecDeque<Task>,
     triggers: HashMap<Trigger, Vec<Rc<ProcedureValue>>>,
+    targets: Vec<TargetScope>,
+
+    /// A queue of tasks that must be scheduled before this frame is over.
+    task_queue: VecDeque<Task>,
+    /// A list of tasks that are inactive or waiting for the next frame.
+    sleepers: BinaryHeap<Reverse<Sleeper>>,
 }
 
 impl Program {
-    pub fn new(constants: Box<[Value]>, vars: Vec<VarState>, builtins: Vec<Option<BlockRuntimeLogic>>) -> Self {
+    pub fn new(
+        builtins: BlockRuntimeLibrary,
+        constants: Box<[Value]>,
+        events: Vec<EventValue>,
+        global_vars: Vec<VarState>,
+        targets: Vec<TargetScope>,
+    ) -> Self {
         Self {
             constants,
-            vars,
+            global_vars,
             procedures: Vec::new(),
-            builtins,
-            events: Vec::new(),
-            task_queue: VecDeque::new(),
+            builtins: Some(builtins),
+            events,
             triggers: HashMap::new(),
+            targets,
+            task_queue: VecDeque::new(),
+            sleepers: BinaryHeap::new(),
         }
     }
 
@@ -82,11 +103,39 @@ impl Program {
         self.task_queue.push_back(task);
     }
 
-    pub fn run(&mut self) {
+    pub fn has_incomplete_tasks(&self) -> bool {
+        !self.sleepers.is_empty() || !self.task_queue.is_empty()
+    }
+
+    fn wake_sleepers(&mut self, now: Instant) {
+        while let Some(Reverse(Sleeper(sleeper))) = self.sleepers.peek()
+            && sleeper.wake_time <= now
+        {
+            let Reverse(Sleeper(task)) = self.sleepers.pop().unwrap();
+            self.enqueue(task);
+        }
+    }
+
+    /// Enqueues tasks that are done sleeping, then runs the interpreter
+    /// until all tasks are sleeping again. Tasks are sent to sleep whenever
+    /// they yield or wait for a duration of time.
+    pub fn run_frame(&mut self) {
+        let now = Instant::now();
+        self.wake_sleepers(now);
+
+        let mut next_priority = now;
+
         while let Some(mut task) = self.task_queue.pop_front() {
+            // Wake Time doubles as task priority because it's used to order
+            // the tasks in the sleepers queue. Here we reset the priority
+            // to ensure all tasks maintain a predictable execution order.
+            task.wake_time = next_priority;
+            next_priority += Duration::from_nanos(1);
+
             task.run_until_yield(self);
+
             if !task.is_complete() {
-                self.task_queue.push_back(task);
+                self.sleepers.push(Reverse(Sleeper(task)));
             }
         }
     }
@@ -110,21 +159,41 @@ impl Program {
         }
     }
 
-    pub fn read_var(&mut self, id: Id<VarState>) -> Value {
-        self.vars[id.get()].as_ref().borrow().clone()
+    pub fn read_var(&mut self, target_id: usize, id: Id<VarState>) -> Value {
+        let target = &self.targets[target_id];
+        let idx = id.get();
+
+        if let Some(idx) = idx.checked_sub(self.global_vars.len()) {
+            target.vars[idx].as_ref().borrow().clone()
+        } else {
+            self.global_vars[idx].as_ref().borrow().clone()
+        }
     }
 
-    pub fn set_var(&mut self, id: Id<VarState>, value: Value) {
-        *self.vars[id.get()].as_ref().borrow_mut() = value;
+    pub fn set_var(&mut self, target_id: usize, id: Id<VarState>, value: Value) {
+        self.with_var(target_id, id, |var| *var = value);
+    }
+
+    pub fn with_var(&mut self, target_id: usize, id: Id<VarState>, cb: impl FnOnce(&mut Value)) {
+        let target = &mut self.targets[target_id];
+        let idx = id.get();
+
+        if let Some(idx) = idx.checked_sub(self.global_vars.len()) {
+            cb(&mut *target.vars[idx].as_ref().borrow_mut());
+        } else {
+            cb(&mut *self.global_vars[idx].as_ref().borrow_mut());
+        }
     }
 }
 
+#[derive(Debug, PartialEq)]
 pub struct Task {
     procedure: Rc<ProcedureValue>,
     location: usize,
     scopes: Vec<Box<[Value]>>,
     stack: Vec<Value>,
     complete: bool,
+    wake_time: Instant,
 }
 
 impl Task {
@@ -138,11 +207,57 @@ impl Task {
             scopes: vec![scope.into_boxed_slice()],
             stack: Vec::with_capacity(10),
             complete: false,
+            wake_time: Instant::now(),
         }
     }
 
     pub fn is_complete(&self) -> bool {
         self.complete
+    }
+
+    pub fn sleep_until(&mut self, wake_time: Instant) {
+        self.wake_time = wake_time;
+    }
+
+    pub fn is_done_sleeping(&self) -> bool {
+        Instant::now() >= self.wake_time
+    }
+
+    pub fn stack(&self) -> &Vec<Value> {
+        &self.stack
+    }
+
+    pub fn stack_mut(&mut self) -> &mut Vec<Value> {
+        &mut self.stack
+    }
+
+    fn pop_n_and_map<const N: usize, T>(&mut self, map: impl FnMut(Value) -> T) -> [T; N] {
+        let first_idx = self.stack.len() - N;
+        self.stack
+            .drain(first_idx..self.stack.len())
+            .map(map)
+            .collect_array::<N>()
+            .unwrap()
+    }
+
+    pub fn pop_values<const N: usize>(&mut self) -> [Value; N] {
+        self.pop_n_and_map(identity)
+    }
+
+    pub fn pop_numbers<const N: usize>(&mut self) -> [f64; N] {
+        self.pop_n_and_map(|v| v.cast_number())
+    }
+
+    pub fn pop_strings<const N: usize>(&mut self) -> [Arc<str>; N] {
+        self.pop_n_and_map(|v| v.cast_string())
+    }
+
+    pub fn push(&mut self, value: Value) {
+        self.stack.push(value);
+    }
+
+    pub fn pop(&mut self) -> Value {
+        self.stack.pop().unwrap()
     }
 
     pub fn enter_scope(&mut self, scope: Box<[Value]>) {
@@ -177,35 +292,18 @@ impl Task {
         Id::from(self.read_immediate() as usize)
     }
 
-    fn pop_n_and_map<const N: usize, T>(&mut self, map: impl FnMut(Value) -> T) -> [T; N] {
-        let first_idx = self.stack.len() - N;
-        self.stack
-            .drain(first_idx..self.stack.len())
-            .map(map)
-            .collect_array::<N>()
-            .unwrap()
-    }
-
-    fn pop_values<const N: usize>(&mut self) -> [Value; N] {
-        self.pop_n_and_map(identity)
-    }
-
-    fn pop_numbers<const N: usize>(&mut self) -> [f64; N] {
-        self.pop_n_and_map(|v| v.cast_number())
-    }
-
-    fn pop_strings<const N: usize>(&mut self) -> [Arc<str>; N] {
-        self.pop_n_and_map(|v| v.cast_string())
-    }
-
     fn run_until_yield(&mut self, program: &mut Program) {
+        // Wake time is used as priority, so reset this task's priority to
+        // send it to the back of the queue because we are running it.
+        self.wake_time = Instant::now();
+
         loop {
             if self.location >= self.procedure.bytecode().len() {
                 panic!("Reached end of procedure bytecode without returning");
             }
 
-            let should_yield = self.run_opcode(program);
-            if should_yield {
+            let did_yield = self.run_opcode(program);
+            if did_yield {
                 break;
             }
         }
@@ -230,6 +328,15 @@ impl Task {
             Opcode::PushZero => {
                 self.stack.push(Value::Number(0.0));
             }
+            Opcode::PushNumber => {
+                let bytes_0 = self.read_immediate();
+                let bytes_1 = self.read_immediate();
+
+                let bytes = bytemuck::cast([bytes_0, bytes_1]);
+                let num = f64::from_le_bytes(bytes);
+
+                self.stack.push(Value::Number(num));
+            }
             Opcode::PushUInt32 => {
                 let uint = self.read_immediate();
                 self.stack.push(Value::Number(uint as f64));
@@ -240,17 +347,27 @@ impl Task {
                 let dbg_msg = format!("> {}", program.dbg_string(&id.into()));
                 println!("  {}", dbg_msg.bright_black());
                 program.dispatch(Trigger::Event(id));
+
                 return true;
             }
             Opcode::CallBuiltin => {
                 let imm = self.read_immediate();
 
-                let mut builtin = program.builtins.remove(imm as usize);
-                if let Some(builtin) = builtin.as_deref_mut() {
-                    builtin(RuntimeContext { task: self, program });
+                let mut library = program
+                    .builtins
+                    .take()
+                    .expect("builtins library should be available");
+
+                if let Some(builtin) = library.get(imm as usize) {
+                    builtin(RuntimeContext {
+                        task: self,
+                        program,
+                    });
                 } else {
                     unimplemented!("runtime logic for builtin {imm}");
                 }
+
+                program.builtins = Some(library);
 
                 return true;
             }
@@ -314,20 +431,48 @@ impl Task {
             Opcode::Yield => {
                 return true;
             }
+            Opcode::Sleep => {
+                let [duration_secs] = self.pop_numbers();
+                self.wake_time = Instant::now() + Duration::from_secs_f64(duration_secs);
+                return true;
+            }
 
             Opcode::SetVar => {
                 let new_value = self.stack.pop().unwrap();
-                program.set_var(self.read_id::<VarState>(), new_value);
+                program.set_var(
+                    self.procedure.target_id,
+                    self.read_id::<VarState>(),
+                    new_value,
+                );
+            }
+            Opcode::ChangeVar => {
+                let offset = self.stack.pop().unwrap();
+                program.with_var(
+                    self.procedure.target_id,
+                    self.read_id::<VarState>(),
+                    |var| {
+                        *var = Value::Number(var.cast_number() + offset.cast_number());
+                    },
+                );
             }
             Opcode::ClearVar => {
-                program.set_var(self.read_id::<VarState>(), Value::default());
+                program.set_var(
+                    self.procedure.target_id,
+                    self.read_id::<VarState>(),
+                    Value::default(),
+                );
             }
             Opcode::ZeroVar => {
-                program.set_var(self.read_id::<VarState>(), Value::Number(0.0));
+                program.set_var(
+                    self.procedure.target_id,
+                    self.read_id::<VarState>(),
+                    Value::Number(0.0),
+                );
             }
             Opcode::PushVar => {
                 let id = self.read_id::<VarState>();
-                self.stack.push(program.read_var(id));
+                self.stack
+                    .push(program.read_var(self.procedure.target_id, id));
             }
 
             Opcode::SetLocal => {
@@ -366,9 +511,7 @@ impl Task {
 
     fn run_builtin(&mut self, procedure: BuiltinProcedure, program: &mut Program) {
         match procedure {
-            BuiltinProcedure::Say => {
-
-            }
+            BuiltinProcedure::Say => {}
             BuiltinProcedure::LengthOf => {
                 let param = self.stack.pop().unwrap();
                 let length = param.cast_string().len();
@@ -392,25 +535,65 @@ impl Task {
     }
 }
 
+#[derive(Debug)]
+struct Sleeper(Task);
+
+impl Eq for Sleeper {}
+
+impl PartialEq for Sleeper {
+    fn eq(&self, other: &Self) -> bool {
+        self.0.wake_time == other.0.wake_time
+    }
+}
+
+impl Ord for Sleeper {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.0.wake_time.cmp(&other.0.wake_time)
+    }
+}
+
+impl PartialOrd for Sleeper {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+#[derive(Debug)]
+pub struct TargetScope {
+    vars: Vec<VarState>,
+}
+
+impl TargetScope {
+    pub const fn new(vars: Vec<VarState>) -> Self {
+        Self { vars }
+    }
+}
+
+impl From<&Target> for TargetScope {
+    fn from(value: &Target) -> Self {
+        Self::new(value.variables.values().map(|v| v.initialize()).collect())
+    }
+}
+
 pub struct RuntimeContext<'a> {
     task: &'a mut Task,
     program: &'a mut Program,
 }
 
 impl RuntimeContext<'_> {
-    pub fn stack(&self) -> &Vec<Value> {
-        &self.task.stack
+    pub const fn task(&self) -> &Task {
+        self.task
     }
 
-    pub fn stack_mut(&mut self) -> &mut Vec<Value> {
-        &mut self.task.stack
+    pub const fn task_mut(&mut self) -> &mut Task {
+        self.task
     }
 
-    pub fn program(&self) -> &Program {
+    pub const fn program(&self) -> &Program {
         self.program
     }
 
-    pub fn program_mut(&mut self) -> &mut Program {
+    pub const fn program_mut(&mut self) -> &mut Program {
         self.program
     }
 }

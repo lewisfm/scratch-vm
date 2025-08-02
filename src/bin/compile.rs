@@ -1,14 +1,14 @@
 use std::{collections::HashMap, sync::Arc};
 
 use scratch_vm::{
-    ast::{Block, project::ScratchProject, Script, Sprite, StartCondition, Target, VariableRef},
-    codegen::{BlockLibrary, ScriptCompiler, TargetContext},
+    ast::{project::ScratchProject, Block, Script, Sprite, StartCondition, Target, VariableRef},
+    codegen::{BlockLibrary, ProjectContext, ScriptCompiler, TargetCodegenContext},
     interpreter::{opcode::Trigger, value::{ProcedureValue, Value}, Program},
 };
 
 fn main() {
     let thing_to_type = VariableRef::new(",v+_??!Fl(Mkx.^9$?aq", "thing_to_type");
-    let target = TargetContext::new(HashMap::from([
+    let target = TargetCodegenContext::new(HashMap::from([
         (thing_to_type.clone(), Value::from("")),
     ]));
 
@@ -29,7 +29,7 @@ fn main() {
 
     dbg!(&compiler);
 
-    let library = Arc::into_inner(compiler.library).unwrap();
+    let library = Arc::into_inner(compiler.block_library).unwrap();
     let builtins = library.into_runtime_callbacks();
 
     let constants = compiler.target.take_constants();
@@ -45,5 +45,5 @@ fn main() {
     program.add_trigger(compiled_script, Trigger::OnStart);
 
     program.dispatch(Trigger::OnStart);
-    program.run();
+    program.run_frame();
 }

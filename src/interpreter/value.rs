@@ -65,20 +65,25 @@ impl Default for Value {
     }
 }
 
+#[derive(Debug, PartialEq, Eq)]
 pub struct ProcedureValue {
     name: Option<Arc<str>>,
     pub(crate) param_count: usize,
     pub(crate) locals: Box<[Local]>,
     bytecode: Box<[u32]>,
     pub(super) ident: OnceCell<Id<Self>>,
+    pub(super) target_id: usize,
+    pub(super) warp: bool,
 }
 
 impl ProcedureValue {
     pub fn new(
         name: Option<Arc<str>>,
+        target_id: usize,
         param_count: usize,
         locals: Box<[Local]>,
         instructions: Box<[u32]>,
+        warp: bool,
     ) -> Self {
         if param_count > locals.len() {
             panic!("Too many params to store in the declared locals");
@@ -90,6 +95,8 @@ impl ProcedureValue {
             locals,
             bytecode: instructions,
             ident: OnceCell::new(),
+            target_id,
+            warp,
         }
     }
 
@@ -146,6 +153,7 @@ impl AsRef<RefCell<Value>> for VarState {
     }
 }
 
+#[derive(Debug, PartialEq, Eq)]
 pub struct Local {
     name: Option<Arc<str>>,
 }

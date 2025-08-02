@@ -2,7 +2,7 @@ use std::{any::type_name, collections::HashMap, rc::Rc, str::FromStr, sync::Arc}
 
 use derive_more::{AsRef, Constructor, From, Into, TryUnwrap, Unwrap};
 
-use crate::interpreter::value::Value;
+use crate::interpreter::value::{Value, VarState};
 
 // pub mod primitives;
 pub mod project;
@@ -18,7 +18,8 @@ pub struct Target {
 #[derive(Debug)]
 pub struct Sprite {}
 
-#[derive(Debug)]
+#[derive(Debug, TryUnwrap)]
+#[try_unwrap(ref)]
 pub enum StartCondition {
     FlagClicked,
     BroadcastReceived(Event),
@@ -29,7 +30,7 @@ pub enum StartCondition {
 pub struct ProcedurePrototype {
     pub proc_code: Arc<str>,
     pub arguments: Vec<ProcedureArgument>,
-    pub skip_yields: bool,
+    pub warp: bool,
 }
 
 impl ProcedurePrototype {
@@ -37,7 +38,7 @@ impl ProcedurePrototype {
         Self {
             proc_code: proc_code.into(),
             arguments: vec![],
-            skip_yields: false,
+            warp: false,
         }
     }
 
@@ -87,7 +88,7 @@ pub struct Block {
 
 impl Block {
     pub const TEXT_FIELD: &str = "TEXT";
-    pub const NUM_FIELD: &str = "TEXT";
+    pub const NUM_FIELD: &str = "NUM";
     pub const COLOR_FIELD: &str = "COLOUR";
     pub const VAR_FIELD: &str = "VARIABLE";
     pub const ARG_NAME_FIELD: &str = "VALUE";
@@ -417,6 +418,13 @@ impl Variable {
 
     pub fn name(&self) -> Arc<str> {
         self.reference.name()
+    }
+
+    pub fn initialize(&self) -> VarState {
+        VarState {
+            name: self.name(),
+            value: self.initial_value.clone().into(),
+        }
     }
 }
 

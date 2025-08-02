@@ -1,9 +1,8 @@
 use std::collections::HashMap;
 
-use scratch_vm::ast::{
-    Block, Event, ProcedureArgument, ProcedurePrototype, project::ScratchProject, Script,
-    Sprite, StartCondition, Target, VariableRef,
-};
+use scratch_vm::{ast::{
+    project::ScratchProject, Block, Event, ProcedureArgument, ProcedurePrototype, Script, Sprite, StartCondition, Target, Variable, VariableRef
+}, interpreter::value::Value};
 
 fn main() {
     let thingtotype = VariableRef::new(",v+_??!Fl(Mkx.^9$?aq", "thingtotype");
@@ -94,6 +93,11 @@ fn main() {
             sprite: Some(Sprite {}),
             variables: HashMap::from([]),
         }],
+        global_vars: HashMap::from([
+            ("001".into(), Variable::new(thingtotype, Value::default())),
+            ("002".into(), Variable::new(textsofar, Value::default())),
+            ("003".into(), Variable::new(c, Value::default())),
+        ]),
     };
 
     dbg!(ast);
