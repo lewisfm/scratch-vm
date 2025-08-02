@@ -121,14 +121,16 @@ impl Program {
     /// until all tasks are sleeping again. Tasks are sent to sleep whenever
     /// they yield or wait for a duration of time.
     pub fn run_frame(&mut self) {
-        let now = Instant::now();
-        if let Some(delay) = self.next_wake().checked_duration_since(now) {
+        let frame_start = Instant::now();
+
+        let wake_time = self.next_wake();
+        if let Some(delay) = wake_time.checked_duration_since(frame_start) {
             sleep(delay);
         }
 
-        self.wake_sleepers(now);
+        self.wake_sleepers(wake_time);
 
-        let mut next_priority = now;
+        let mut next_priority = frame_start;
 
         while let Some(mut task) = self.task_queue.pop_front() {
             // Wake Time doubles as task priority because it's used to order
