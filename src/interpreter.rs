@@ -1,10 +1,5 @@
 use std::{
-    cmp::Reverse,
-    collections::{BinaryHeap, HashMap, VecDeque, hash_map::Entry},
-    convert::identity,
-    rc::Rc,
-    sync::Arc,
-    time::{Duration, Instant},
+    cmp::Reverse, collections::{hash_map::Entry, BinaryHeap, HashMap, VecDeque}, convert::identity, rc::Rc, sync::Arc, thread::sleep, time::{Duration, Instant}
 };
 
 use itertools::Itertools;
@@ -107,6 +102,12 @@ impl Program {
         !self.sleepers.is_empty() || !self.task_queue.is_empty()
     }
 
+    pub fn next_wake(&self) -> Instant {
+        self.sleepers
+            .peek()
+            .map_or_else(Instant::now, |s| s.0.0.wake_time)
+    }
+
     fn wake_sleepers(&mut self, now: Instant) {
         while let Some(Reverse(Sleeper(sleeper))) = self.sleepers.peek()
             && sleeper.wake_time <= now
@@ -121,6 +122,10 @@ impl Program {
     /// they yield or wait for a duration of time.
     pub fn run_frame(&mut self) {
         let now = Instant::now();
+        if let Some(delay) = self.next_wake().checked_duration_since(now) {
+            sleep(delay);
+        }
+
         self.wake_sleepers(now);
 
         let mut next_priority = now;
